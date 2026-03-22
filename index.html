@@ -1,24 +1,183 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>我的汽配网站</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Val-Tecs - Auto & Motorcycle Parts</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
-        h1 { color: #2c3e50; }
-        p { color: #7f8c8d; font-size: 18px; }
-        .product { margin: 30px 0; }
+        /* 全局样式：专业汽配风格 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        /* 顶部导航栏 */
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .tagline {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        /* 主体内容 */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .intro {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .intro h2 {
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        .intro p {
+            font-size: 18px;
+            max-width: 800px;
+            margin: 0 auto;
+            color: #666;
+        }
+        /* 产品展示区 */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        .product-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        .product-img {
+            width: 100%;
+            height: 200px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+        }
+        .product-card h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .product-card p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        .product-price {
+            font-weight: bold;
+            color: #e74c3c;
+            font-size: 18px;
+        }
+        /* 联系方式 */
+        .contact {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .contact h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        .contact-info {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        /* 底部版权 */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 50px;
+        }
     </style>
 </head>
 <body>
-    <h1>欢迎来到我的汽车配件网站</h1>
-    <p>专业提供汽车、摩托车、房车配件，欢迎美国客户咨询！</p>
-    <div class="product">
-        <h3>产品示例 1</h3>
-        <p>高性能汽车减震器</p>
+    <!-- 顶部导航 -->
+    <header>
+        <div class="logo">Val-Tecs Auto Parts</div>
+        <div class="tagline">High Quality Auto & Motorcycle Parts for USA Market</div>
+    </header>
+
+    <!-- 主体内容 -->
+    <div class="container">
+        <!-- 简介 -->
+        <section class="intro">
+            <h2>Welcome to Val-Tecs - Your Reliable Parts Supplier</h2>
+            <p>我们专注于为美国客户提供高品质的汽车、摩托车、房车配件，产品耐用、价格合理，支持定制化需求。<br>
+               We specialize in providing high-quality auto, motorcycle and RV parts for US customers, with durable products, reasonable prices and customized support.</p>
+        </section>
+
+        <!-- 产品展示 -->
+        <section class="products">
+            <!-- 产品1 -->
+            <div class="product-card">
+                <div class="product-img">Product Image</div>
+                <h3>汽车减震器 / Auto Shock Absorber</h3>
+                <p>适配多款车型，减震效果好，使用寿命长<br>Fit multiple models, good shock absorption, long service life</p>
+                <div class="product-price">$89.99</div>
+            </div>
+
+            <!-- 产品2 -->
+            <div class="product-card">
+                <div class="product-img">Product Image</div>
+                <h3>摩托车链条 / Motorcycle Chain</h3>
+                <p>高强度耐磨，防锈处理，适配主流品牌<br>High strength, wear-resistant, rust-proof, fit mainstream brands</p>
+                <div class="product-price">$45.99</div>
+            </div>
+
+            <!-- 产品3 -->
+            <div class="product-card">
+                <div class="product-img">Product Image</div>
+                <h3>房车配件 / RV Accessories</h3>
+                <p>高品质房车五金件，安装简单，耐用性强<br>High-quality RV hardware, easy installation, strong durability</p>
+                <div class="product-price">$69.99</div>
+            </div>
+        </section>
+
+        <!-- 联系方式 -->
+        <section class="contact">
+            <h3>Contact Us / 联系我们</h3>
+            <div class="contact-info">Email: info@val-tecs.com</div>
+            <div class="contact-info">Phone: +1 (XXX) XXX-XXXX</div>
+            <div class="contact-info">Address: USA (Customize as needed)</div>
+        </section>
     </div>
-    <div class="product">
-        <h3>产品示例 2</h3>
-        <p>耐用摩托车链条</p>
-    </div>
+
+    <!-- 底部 -->
+    <footer>
+        <p>© 2026 Val-Tecs Auto Parts - All Rights Reserved</p>
+    </footer>
 </body>
 </html>
