@@ -3,122 +3,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Val-Tecs - Professional Auto Parts | USA</title>
+    <title>Val-Tecs - Auto Parts | USA</title>
     <style>
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-            font-family:Arial, sans-serif;
-        }
-        body{
-            background:#fff;
-            color:#222;
-        }
-        /* 顶部导航 */
-        .header{
+        *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+        body{background:#fff;color:#111}
+        
+        /* -------------------------- */
+        /* 1. TOP NAV (Like Craftsman) */
+        /* -------------------------- */
+        .top-nav{
             background:#111;
             color:white;
-            padding:20px;
-            text-align:center;
+            padding:16px 30px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
         }
-        .logo{
-            font-size:32px;
-            font-weight:bold;
-            margin-bottom:10px;
-        }
-        /* 大横幅 */
-        .banner{
-            background:#ff6a00;
+        .logo{font-size:24px;font-weight:bold}
+        .menu a{
             color:white;
-            text-align:center;
-            padding:60px 20px;
+            text-decoration:none;
+            margin-left:24px;
+            font-size:15px;
         }
-        .banner h1{
-            font-size:42px;
-            margin-bottom:15px;
+        .menu a:hover{color:#ff6c00}
+
+        /* -------------------------- */
+        /* 2. HERO BANNER              */
+        /* -------------------------- */
+        .hero{
+            width:100%;
+            height:550px;
+            background:url('https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?q=80&w=1920') center center;
+            background-size:cover;
+            display:flex;
+            align-items:center;
+            padding-left:60px;
+            color:white;
         }
-        .banner p{
-            font-size:18px;
-            max-width:800px;
-            margin:0 auto;
+        .hero-text{max-width:600px}
+        .hero h1{font-size:52px;margin-bottom:16px}
+        .hero p{font-size:20px;margin-bottom:24px}
+        .btn{
+            background:#ff6c00;
+            color:white;
+            padding:14px 28px;
+            border:none;
+            border-radius:4px;
+            font-size:16px;font-weight:bold;
+            cursor:pointer;
+            text-decoration:none;
+            display:inline-block;
         }
-        /* 产品分类 */
-        .category-box{
-            max-width:1200px;
+        .btn:hover{background:#e56000}
+
+        /* -------------------------- */
+        /* 3. CATEGORY AREA            */
+        /* -------------------------- */
+        .categories{
+            max-width:1400px;
             margin:50px auto;
             padding:0 20px;
             display:grid;
-            grid-template-columns:repeat(3, 1fr);
-            gap:25px;
+            grid-template-columns:repeat(4,1fr);
+            gap:20px;
         }
-        .category{
+        .cat-item{
+            height:160px;
             background:#f5f5f5;
-            padding:30px 20px;
             border-radius:8px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:18px;
+            font-weight:bold;
+        }
+
+        /* -------------------------- */
+        /* 4. FEATURED PRODUCTS        */
+        /* -------------------------- */
+        .featured{
+            max-width:1400px;
+            margin:0 auto 60px;
+            padding:0 20px;
+        }
+        .featured h2{
+            font-size:32px;
+            margin-bottom:30px;
             text-align:center;
-        }
-        .category h3{
-            font-size:22px;
-            margin-bottom:10px;
-            color:#111;
-        }
-        .category p{
-            color:#555;
-        }
-        /* 产品展示 */
-        .products{
-            background:#f9f9f9;
-            padding:60px 20px;
-        }
-        .products h2{
-            text-align:center;
-            font-size:30px;
-            margin-bottom:40px;
         }
         .product-grid{
+            display:grid;
+            grid-template-columns:repeat(4,1fr);
+            gap:25px;
+        }
+        .product{
+            border:1px solid #eee;
+            border-radius:8px;
+            overflow:hidden;
+        }
+        .product-img{
+            height:200px;
+            background:#eee;
+        }
+        .product-info{padding:20px}
+        .product-title{font-size:16px;margin-bottom:8px}
+        .price{color:#ff6c00;font-size:18px;font-weight:bold}
+
+        /* -------------------------- */
+        /* 5. WHY CHOOSE US            */
+        /* -------------------------- */
+        .why{
+            background:#f9f9f9;
+            padding:60px 20px;
+            text-align:center;
+        }
+        .why h2{font-size:32px;margin-bottom:40px}
+        .why-grid{
             max-width:1200px;
             margin:auto;
             display:grid;
             grid-template-columns:repeat(3,1fr);
-            gap:25px;
+            gap:30px;
         }
-        .product{
-            background:white;
-            padding:25px;
-            border-radius:8px;
-            box-shadow:0 2px 5px rgba(0,0,0,0.1);
-            text-align:center;
-        }
-        .product h4{
-            font-size:19px;
-            margin-bottom:10px;
-        }
-        .product .price{
-            color:#ff6a00;
-            font-size:20px;
-            font-weight:bold;
-            margin-top:10px;
-        }
-        /* 联系我们 */
-        .contact{
+        .why-item h3{margin-bottom:10px;font-size:20px}
+
+        /* -------------------------- */
+        /* 6. FOOTER                   */
+        /* -------------------------- */
+        .footer{
             background:#111;
             color:white;
-            text-align:center;
-            padding:40px 20px;
+            padding:50px 20px;
         }
-        .contact h3{
-            font-size:24px;
-            margin-bottom:15px;
+        .footer-container{
+            max-width:1200px;
+            margin:auto;
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:30px;
         }
-        .contact p{
-            font-size:16px;
-            margin:5px 0;
+        .footer-col h3{
+            color:#ff6c00;
+            margin-bottom:16px;
+            font-size:18px;
         }
-        /* 底部 */
-        .footer{
+        .footer-col p{margin-bottom:8px;color:#ccc}
+        .copyright{
             background:#000;
-            color:#999;
+            color:#777;
             text-align:center;
             padding:20px;
             font-size:14px;
@@ -128,66 +161,114 @@
 
 <body>
 
-    <!-- 顶部 -->
-    <div class="header">
-        <div class="logo">VAL-TECS AUTO PARTS</div>
-        <p>Quality Parts For The USA Market</p>
-    </div>
-
-    <!-- 大横幅 -->
-    <div class="banner">
-        <h1>Reliable. Durable. Professional.</h1>
-        <p>We supply high-quality auto, motorcycle, and RV parts to customers all over the United States.</p>
-    </div>
-
-    <!-- 产品分类 -->
-    <div class="category-box">
-        <div class="category">
-            <h3>AUTO PARTS</h3>
-            <p>Shocks, Brakes, Filters, Parts</p>
-        </div>
-        <div class="category">
-            <h3>MOTORCYCLE PARTS</h3>
-            <p>Chains, Tires, Accessories</p>
-        </div>
-        <div class="category">
-            <h3>RV PARTS</h3>
-            <p>Hardware, Pumps, Lighting</p>
+    <!-- 1. TOP NAVIGATION -->
+    <div class="top-nav">
+        <div class="logo">VAL-TECS</div>
+        <div class="menu">
+            <a href="#">Home</a>
+            <a href="#">Products</a>
+            <a href="#">Categories</a>
+            <a href="#">About Us</a>
+            <a href="#">Contact</a>
         </div>
     </div>
 
-    <!-- 热门产品 -->
-    <div class="products">
+    <!-- 2. HERO BANNER -->
+    <div class="hero">
+        <div class="hero-text">
+            <h1>Professional Auto Parts For USA</h1>
+            <p>Durable, reliable, affordable parts for trucks, motorcycles & RVs.</p>
+            <a href="#" class="btn">Shop Now</a>
+        </div>
+    </div>
+
+    <!-- 3. CATEGORIES -->
+    <div class="categories">
+        <div class="cat-item">Auto Parts</div>
+        <div class="cat-item">Motorcycle Parts</div>
+        <div class="cat-item">RV Parts</div>
+        <div class="cat-item">Accessories</div>
+    </div>
+
+    <!-- 4. FEATURED PRODUCTS -->
+    <div class="featured">
         <h2>Featured Products</h2>
         <div class="product-grid">
             <div class="product">
-                <h4>Heavy Duty Shock Absorber</h4>
-                <p>For Ford, Chevy, Dodge Trucks</p>
-                <div class="price">$98.99</div>
+                <div class="product-img"></div>
+                <div class="product-info">
+                    <div class="product-title">Shock Absorber</div>
+                    <div class="price">$98.99</div>
+                </div>
             </div>
             <div class="product">
-                <h4>Motorcycle O-Ring Chain</h4>
-                <p>520 Pitch, Heavy Duty</p>
-                <div class="price">$46.99</div>
+                <div class="product-img"></div>
+                <div class="product-info">
+                    <div class="product-title">Motorcycle Chain</div>
+                    <div class="price">$46.99</div>
+                </div>
             </div>
             <div class="product">
-                <h4>RV 12V Water Pump</h4>
-                <p>Quiet & Long Life</p>
-                <div class="price">$85.99</div>
+                <div class="product-img"></div>
+                <div class="product-info">
+                    <div class="product-title">RV Water Pump</div>
+                    <div class="price">$85.99</div>
+                </div>
+            </div>
+            <div class="product">
+                <div class="product-img"></div>
+                <div class="product-info">
+                    <div class="product-title">Brake Pad Kit</div>
+                    <div class="price">$59.99</div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- 联系 -->
-    <div class="contact">
-        <h3>Contact Us</h3>
-        <p>Email: info@val-tecs.com</p>
-        <p>Phone: +1 (888) 123-4567</p>
+    <!-- 5. WHY CHOOSE US -->
+    <div class="why">
+        <h2>Why Val-Tecs?</h2>
+        <div class="why-grid">
+            <div class="why-item">
+                <h3>Premium Quality</h3>
+                <p>All products meet US standard.</p>
+            </div>
+            <div class="why-item">
+                <h3>Fast US Shipping</h3>
+                <p>Deliver to all 50 states quickly.</p>
+            </div>
+            <div class="why-item">
+                <h3>Professional Support</h3>
+                <p>English service for US customers.</p>
+            </div>
+        </div>
     </div>
 
-    <!-- 底部 -->
+    <!-- 6. FOOTER -->
     <div class="footer">
-        © 2026 Val-Tecs Auto Parts. All Rights Reserved.
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>Contact Us</h3>
+                <p>Email: info@val-tecs.com</p>
+                <p>Phone: +1 (888) 123-4567</p>
+            </div>
+            <div class="footer-col">
+                <h3>Categories</h3>
+                <p>Auto Parts</p>
+                <p>Motorcycle Parts</p>
+                <p>RV Parts</p>
+            </div>
+            <div class="footer-col">
+                <h3>Support</h3>
+                <p>Shipping Policy</p>
+                <p>Warranty</p>
+                <p>Returns</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="copyright">
+        © 2026 Val-Tecs. All Rights Reserved.
     </div>
 
 </body>
