@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Valtecs</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .product-card {
+            background-color: var(--text-light);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .product-img {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .product-info {
+            padding: 25px;
+        }
+        
+        .product-info h3 {
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .product-info p {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+        
+        .product-category-section {
+            margin-bottom: 80px;
+        }
+        
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--bg-light);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .category-header h2 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/valtecs_logo.png" alt="Valtecs Logo">
+                </a>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html" class="active">Products</a></li>
+                    <li><a href="support.html">Support</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header" style="background-color: var(--bg-dark); color: var(--text-light); padding: 80px 0; text-align: center;">
+            <div class="container">
+                <h1 style="font-size: 3rem; text-transform: uppercase; margin-bottom: 15px;">Our Products</h1>
+                <p style="font-size: 1.2rem; color: #ccc; max-width: 800px; margin: 0 auto;">Professional replacement parts, assemblies, accessories, performance upgrades and onboard products for all wheeled vehicles.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <!-- Car & SUV -->
+                <div class="product-category-section" id="cars">
+                    <div class="category-header">
+                        <h2>Car & SUV</h2>
+                    </div>
+                    <div class="product-grid">
+                        <div class="product-card">
+                            <div class="product-img" style="background-image: url('images/banner_car.jpg');"></div>
+                            <div class="product-info">
+                                <h3>Performance Brake Pads</h3>
+                                <p>Engineered for optimal stopping power and reduced dust for daily driving and performance applications.</p>
+                                <a href="product-detail.html" class="btn btn-outline">View Details</a>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-img" style="background-image: url('images/banner_car.jpg');"></div>
+                            <div class="product-info">
+                                <h3>Suspension Kits</h3>
+                                <p>Complete suspension upgrades providing improved handling, comfort, and durability on all road surfaces.</p>
+                                <a href="product-detail.html" class="btn btn-outline">View Details</a>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-img" style="background-image: url('images/banner_car.jpg');"></div>
+                            <div class="product-info">
+                                <h3>Engine Filters</h3>
+                                <p>High-efficiency air and oil filters designed to protect your engine and maximize performance.</p>
+                                <a href="product-detail.html" class="btn btn-outline">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trucks -->
+                <div class="product-category-section" id="trucks">
+                    <div class="category-header">
+                        <h2>Trucks & Trailers</h2>
+                    </div>
+                    <div class="product-grid">
+                        <div class="product-card">
+                            <div class="product-img" style="background-image: url('images/banner_truck.jpg');"></div>
+                            <div class="product-info">
+                                <h3>Heavy-Duty Towing Accessories</h3>
+                                <p>Built for maximum strength and reliability when hauling heavy loads across rugged terrain.</p>
+                                <a href="product-detail.html" class="btn btn-outline">View Details</a>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-img" style="background-image: url('images/banner_truck.jpg');"></div>
+                            <div class="product-info">
+                                <h3>Cargo Management</h3>
+                                <p>Secure your load with our premium tie-downs, bed extenders, and organization systems.</p>
+                                <a href="product-detail.html" class="btn btn-outline">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Motorcycles -->
+                <div class="product-category-section" id="motorcycles">
+                    <div class="category-header">
+                        <h2>Motorcycles</h2>
+                    </div>
+                    <div class="product-grid">
+                        <div class="product-card">
+                            <div class="product-img" style="background-image: url('images/banner_moto.jpg');"></div>
+                            <div class="product-info">
+                                <h3>Performance Exhausts</h3>
+                                <p>Enhance power delivery and signature sound with our precision-engineered exhaust systems.</p>
+                                <a href="product-detail.html" class="btn btn-outline">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section cta-section">
+            <div class="container">
+                <h2>Ready to buy?</h2>
+                <p>Find our complete product catalog on Amazon.</p>
+                <a href="https://www.amazon.com/valtecs" target="_blank" class="btn btn-primary btn-large">Shop on Amazon</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="images/valtecs_logo.png" alt="Valtecs Logo" class="footer-logo">
+                    <p>Valtecs – Pal for Wheels.<br>Professional auto parts engineered for quality, fit, and durability.</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="support.html">Support</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p>Email: support@valtecs.com</p>
+                    <p>Customer Service: 1-800-VALTECS</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Valtecs. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

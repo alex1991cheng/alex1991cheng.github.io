@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - Valtecs</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .product-detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+        
+        .product-gallery {
+            position: relative;
+        }
+        
+        .main-image {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+        }
+        
+        .thumbnail-list {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .thumbnail {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: var(--transition);
+        }
+        
+        .thumbnail:hover, .thumbnail.active {
+            border-color: var(--primary-color);
+        }
+        
+        .product-meta h1 {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+        
+        .product-price {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .product-description {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+        
+        .product-specs {
+            margin-bottom: 30px;
+            background-color: var(--bg-light);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .product-specs h3 {
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+        }
+        
+        .spec-item {
+            display: flex;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 5px;
+        }
+        
+        .spec-label {
+            font-weight: 600;
+            width: 120px;
+            color: var(--secondary-color);
+        }
+        
+        .spec-value {
+            color: var(--text-muted);
+            flex: 1;
+        }
+        
+        .buy-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        /* Features Tabs */
+        .features-tabs {
+            margin-top: 60px;
+        }
+        
+        .tab-headers {
+            display: flex;
+            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 30px;
+        }
+        
+        .tab-header {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--text-muted);
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        .tab-header:hover {
+            color: var(--secondary-color);
+        }
+        
+        .tab-header.active {
+            color: var(--primary-color);
+        }
+        
+        .tab-header.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: var(--primary-color);
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 20px 0;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .feature-list {
+            list-style: none;
+        }
+        
+        .feature-list li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            color: var(--text-muted);
+        }
+        
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .product-detail-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/valtecs_logo.png" alt="Valtecs Logo">
+                </a>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html" class="active">Products</a></li>
+                    <li><a href="support.html">Support</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="bg-light" style="padding: 20px 0; border-bottom: 1px solid #ddd;">
+            <div class="container">
+                <p style="color: var(--text-muted); font-size: 0.9rem;">
+                    <a href="index.html">Home</a> &gt; <a href="products.html">Products</a> &gt; <a href="products.html#cars">Car & SUV</a> &gt; <span style="color: var(--secondary-color); font-weight: 600;">Performance Brake Pads</span>
+                </p>
+            </div>
+        </div>
+
+        <section class="section" style="padding-top: 50px;">
+            <div class="container">
+                <div class="product-detail-grid">
+                    <div class="product-gallery">
+                        <img src="images/banner_car.jpg" alt="Performance Brake Pads" class="main-image" id="mainImage">
+                        <div class="thumbnail-list">
+                            <img src="images/banner_car.jpg" alt="Thumbnail 1" class="thumbnail active" onclick="document.getElementById('mainImage').src=this.src; document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active')); this.classList.add('active');">
+                            <img src="images/banner_moto.jpg" alt="Thumbnail 2" class="thumbnail" onclick="document.getElementById('mainImage').src=this.src; document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active')); this.classList.add('active');">
+                            <img src="images/banner_rv.jpg" alt="Thumbnail 3" class="thumbnail" onclick="document.getElementById('mainImage').src=this.src; document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active')); this.classList.add('active');">
+                        </div>
+                    </div>
+                    
+                    <div class="product-meta">
+                        <h1>Performance Brake Pads</h1>
+                        <p class="product-price">From $49.99</p>
+                        
+                        <div class="product-description">
+                            <p>Valtecs Performance Brake Pads are engineered for optimal stopping power and reduced dust for daily driving and performance applications. Formulated to provide consistent braking performance in all North American weather conditions.</p>
+                        </div>
+                        
+                        <div class="product-specs">
+                            <h3>Specifications</h3>
+                            <div class="spec-item">
+                                <span class="spec-label">Material</span>
+                                <span class="spec-value">Advanced Ceramic Compound</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Dimensions</span>
+                                <span class="spec-value">7.5" x 4.2" x 2.1" (Box)</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Position</span>
+                                <span class="spec-value">Front & Rear Available</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Compatibility</span>
+                                <span class="spec-value">Fits most major SUV and sedan models</span>
+                            </div>
+                        </div>
+                        
+                        <div class="buy-section">
+                            <a href="https://www.amazon.com/dp/B0EXAMPLE" target="_blank" class="btn btn-primary btn-large" style="width: 100%; display: block; text-align: center; font-size: 1.3rem;">
+                                Buy on Amazon
+                            </a>
+                            <p style="text-align: center; margin-top: 15px; color: var(--text-muted); font-size: 0.9rem;">Fast, free shipping for Prime members.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="features-tabs">
+                    <div class="tab-headers">
+                        <div class="tab-header active" onclick="switchTab('features')">Features & Benefits</div>
+                        <div class="tab-header" onclick="switchTab('installation')">Installation</div>
+                        <div class="tab-header" onclick="switchTab('warranty')">Warranty</div>
+                    </div>
+                    
+                    <div class="tab-content active" id="tab-features">
+                        <ul class="feature-list">
+                            <li><strong>Ultra-Quiet Braking:</strong> Advanced chamfers and slots reduce vibration and eliminate brake squeal.</li>
+                            <li><strong>Low Dust Formula:</strong> Keeps your wheels cleaner for longer compared to traditional semi-metallic pads.</li>
+                            <li><strong>Extended Rotor Life:</strong> Rotor-friendly compound reduces wear on brake discs.</li>
+                            <li><strong>Fade Resistance:</strong> Maintains consistent stopping power even under extreme heat and heavy loads.</li>
+                            <li><strong>Direct Fit:</strong> Engineered to match OEM specifications for a hassle-free installation.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tab-content" id="tab-installation">
+                        <p style="margin-bottom: 20px; font-size: 1.1rem; color: var(--text-muted);">These brake pads are designed for direct replacement of your factory pads. No modifications required.</p>
+                        <p style="margin-bottom: 10px; color: var(--secondary-color); font-weight: 600;">Required Tools:</p>
+                        <ul style="list-style-type: disc; padding-left: 20px; margin-bottom: 20px; color: var(--text-muted);">
+                            <li>Jack and jack stands</li>
+                            <li>Lug wrench</li>
+                            <li>C-clamp or brake caliper piston tool</li>
+                            <li>Socket set</li>
+                        </ul>
+                        <a href="support.html" class="btn btn-outline">View Installation Video Guides</a>
+                    </div>
+                    
+                    <div class="tab-content" id="tab-warranty">
+                        <p style="font-size: 1.1rem; color: var(--text-muted); line-height: 1.8;">Valtecs stands behind the quality of our products. These performance brake pads are backed by a limited lifetime warranty against defects in materials and workmanship. This warranty covers the original purchaser for the life of the vehicle on which the pads were originally installed.</p>
+                        <p style="margin-top: 15px; font-size: 1.1rem; color: var(--text-muted);">Normal wear and tear is not covered under this warranty.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="images/valtecs_logo.png" alt="Valtecs Logo" class="footer-logo">
+                    <p>Valtecs – Pal for Wheels.<br>Professional auto parts engineered for quality, fit, and durability.</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="support.html">Support</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p>Email: support@valtecs.com</p>
+                    <p>Customer Service: 1-800-VALTECS</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Valtecs. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-header').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById('tab-' + tabId).classList.add('active');
+        }
+    </script>
+</body>
+</html>
