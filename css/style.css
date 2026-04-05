@@ -448,127 +448,51 @@ footer h3 {
         grid-template-columns: 1fr;
     }
 }
-/* ==============================================
-   VALTECS 品牌专属配色方案 (匹配Logo色值)
-   黑: #242424 | 白: #ffffff | 橙: #f97106 | 黄: #ffce2f
-   ============================================== */
-
-/* 1. 全局基础样式 */
-body {
-  background-color: #ffffff; /* 纯白背景，干净通透 */
-  color: #242424; /* 深黑文字，高可读性 */
-  font-family: 'Arial', sans-serif;
+/* 品牌四色强制生效 */
+:root {
+  --color-black: #242424;
+  --color-white: #ffffff;
+  --color-orange: #f97106;
+  --color-yellow: #ffce2f;
 }
 
-/* 2. 导航栏样式（核心品牌展示区） */
-.navbar {
-  background-color: #ffffff; /* 纯白导航栏，突出Logo */
-  border-bottom: 3px solid #f97106; /* 橙色底部边框，呼应Logo */
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-.navbar a {
-  color: #242424; /* 深黑导航文字 */
-  font-weight: 600;
-  text-transform: uppercase;
-  transition: all 0.3s ease;
-}
-.navbar a:hover,
-.navbar a.active {
-  color: #f97106; /*  hover/选中变橙色，品牌感拉满 */
-  border-bottom: 2px solid #f97106;
+/* 导航栏背景黑 */
+.navbar,
+#navbar {
+  background-color: var(--color-black) !important;
 }
 
-/* 3. 轮播/首屏Banner样式 */
-.hero-section {
-  background-color: #242424; /* 深黑背景，突出白色标题 */
-  color: #ffffff;
-}
-.hero-accent-text {
-  color: #ffce2f; /* 黄色强调文字（对应你原来的TO EXPLORE） */
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-.hero-title {
-  color: #ffffff; /* 白色大标题，醒目 */
-  font-weight: 800;
-  text-transform: uppercase;
-}
-.hero-subtitle {
-  color: #ffffff;
-  opacity: 0.9;
+/* 导航文字白 */
+.navbar a,
+.navbar-brand,
+.nav-link {
+  color: var(--color-white) !important;
 }
 
-/* 4. 主按钮（EXPLORE PRODUCTS）- 品牌主色 */
-.btn-primary {
-  background-color: #f97106; /* 橙色主按钮，视觉焦点 */
-  border-color: #f97106;
-  color: #ffffff;
-  font-weight: 700;
-  text-transform: uppercase;
-  padding: 12px 24px;
-  border-radius: 4px;
-  transition: all 0.3s ease;
+/* 按钮：主橙色 */
+.btn,
+.button,
+[type="button"],
+[type="submit"] {
+  background-color: var(--color-orange) !important;
+  color: var(--color-white) !important;
+  border-color: var(--color-orange) !important;
 }
-.btn-primary:hover {
-  background-color: #e06505; /*  hover加深橙色，交互感 */
-  border-color: #e06505;
-  color: #ffffff;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(249, 113, 6, 0.3);
+.btn:hover {
+  background-color: #e06000 !important;
 }
 
-/* 5. 次按钮（READ OUR STORY）- 深黑沉稳 */
-.btn-secondary {
-  background-color: #242424; /* 深黑次按钮，对比主按钮 */
-  border-color: #242424;
-  color: #ffffff;
-  font-weight: 700;
-  text-transform: uppercase;
-  padding: 12px 24px;
-  border-radius: 4px;
-  transition: all 0.3s ease;
-}
-.btn-secondary:hover {
-  background-color: #1a1a1a; /*  hover加深黑色 */
-  border-color: #1a1a1a;
-  color: #ffce2f; /*  hover变黄，呼应Logo辅助色 */
-  transform: translateY(-2px);
+/* 小标题/点缀用黄色 */
+.highlight,
+.badge,
+.accent,
+.heading-accent {
+  color: var(--color-yellow) !important;
 }
 
-/* 6. 品牌强调色（用于小标题、图标、点缀） */
-.text-brand-orange {
-  color: #f97106;
-}
-.text-brand-yellow {
-  color: #ffce2f;
-}
-.text-brand-dark {
-  color: #242424;
-}
-
-/* 7. 轮播指示器（Banner下方小圆点） */
-.carousel-indicators li {
-  background-color: #ffffff;
-  opacity: 0.5;
-}
-.carousel-indicators li.active {
-  background-color: #f97106; /* 激活态变橙色，呼应品牌 */
-  opacity: 1;
-}
-
-/* 8. 页脚样式（品牌收尾） */
-.footer {
-  background-color: #242424;
-  color: #ffffff;
-  padding: 40px 0;
-  border-top: 3px solid #f97106;
-}
-.footer a {
-  color: #ffce2f; /* 页脚链接用黄色，醒目 */
-  transition: all 0.3s ease;
-}
-.footer a:hover {
-  color: #f97106;
-  text-decoration: none;
+/* 页脚黑底白字 */
+.footer,
+#footer {
+  background-color: var(--color-black) !important;
+  color: var(--color-white) !important;
 }
