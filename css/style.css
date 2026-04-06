@@ -1,8 +1,8 @@
 /* Variables & Brand Colors */
 :root {
-    --primary-color: #D32F2F; /* Assuming a strong red based on tools brands like Craftsman/Milwaukee */
-    --secondary-color: #212121; /* Dark grey/black for contrast */
-    --accent-color: #FFC107; /* Yellow/Gold accent (DeWalt style) */
+    --primary-color: #f97106; /* Assuming a strong orange */
+    --secondary-color: #242424; /* Dark grey/black for contrast */
+    --accent-color: #ffce2f; /* Yellow/Gold accent */
     --text-dark: #333333;
     --text-light: #FFFFFF;
     --text-muted: #666666;
