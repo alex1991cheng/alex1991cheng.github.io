@@ -158,4 +158,31 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
+
+    // Contact Form mailto handling
+    const contactForm = document.querySelector('.contact-form form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent the default form submission which might be blocked by browsers
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subjectElement = document.getElementById('subject');
+            const subjectText = subjectElement.options[subjectElement.selectedIndex].text;
+            const message = document.getElementById('message').value;
+
+            // Construct the email body
+            let body = `Name: ${name}%0D%0A`;
+            body += `Email: ${email}%0D%0A`;
+            body += `Subject: ${subjectText}%0D%0A`;
+            body += `-------------------------%0D%0A%0D%0A`;
+            body += `${message}`;
+
+            // Create the mailto link
+            const mailtoLink = `mailto:support@val-tecs.com?subject=Valtecs Website Contact: ${encodeURIComponent(subjectText)}&body=${body}`;
+
+            // Open the mailto link
+            window.location.href = mailtoLink;
+        });
+    }
 });

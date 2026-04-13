@@ -210,14 +210,15 @@ header .container {
 .slide-bg {
     position: absolute;
     top: 0;
-    left: -4%; /* 初始位置靠左一点，为向右移动留出空间 */
-    width: 108%; /* 稍微加宽一点，防止移动时露边 */
+    left: -4%; /* 回退一部分预留空间 */
+    width: 108%; /* 回退一部分宽度 */
     height: 100%;
     background-size: cover;
     background-position: center;
     z-index: -1;
-    transform: translate(0, 0);
-    transition: transform 12s linear; /* 缩短过渡时间，让移动感觉稍微快一点点 */
+    transform: translate3d(0, 0, 0); /* 使用 translate3d 开启硬件加速，解决卡顿问题 */
+    transition: transform 10s linear; 
+    will-change: transform; /* 提示浏览器提前优化 */
 }
 
 .slide.active {
@@ -227,7 +228,7 @@ header .container {
 
 /* 激活时，所有图片统一向右平移 */
 .slide.active .slide-bg {
-    transform: translate(2%, 0);
+    transform: translate3d(3.5%, 0, 0); /* 将平移距离调整为之前的 2% 和 5% 的中间值，并保持硬件加速 */
 }
 
 .slide-content {
@@ -420,6 +421,30 @@ header .container {
 
 .card-content .btn {
     align-self: center;
+}
+
+/* Page Header (Subpages) */
+.page-header {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    padding: 100px 0;
+    text-align: center;
+    background-size: cover;
+    background-position: center;
+}
+
+.page-header h1 {
+    font-size: 3rem;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+
+.page-header p {
+    font-size: 1.2rem;
+    color: #f8f8f8; /* 提亮副标题颜色，从 #ccc 变更为更亮的近白色 */
+    font-weight: 500; /* 稍微增加字重，提升在深色背景图上的可读性 */
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 /* CTA Section */
@@ -681,7 +706,7 @@ footer h3 {
         min-height: 400px; /* 同步缩短保底高度 */
     }
 
-    /* 手机端替换为竖版背景图 */
+    /* 手机端替换为竖版背景图，并为竖图单独调整漂浮参数解决卡顿 */
     .slide:nth-child(1) .slide-bg {
         background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../images/banner_car_mobile.webp') !important;
     }
@@ -693,6 +718,17 @@ footer h3 {
     }
     .slide:nth-child(4) .slide-bg {
         background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('../images/banner_truck_mobile.webp') !important;
+    }
+
+    /* 手机端覆盖全局的 transform 参数 */
+    .slide-bg {
+        /* 在手机端调整平移比例和时间 */
+        /* 增加位移量让效果更明显，同时保持 10s 避免过于缓慢 */
+        transition: transform 10s linear; 
+    }
+    
+    .slide.active .slide-bg {
+        transform: translate3d(4%, 0, 0); /* 提升平移幅度到 4% */
     }
 
     .slide-content {
@@ -714,6 +750,18 @@ footer h3 {
     /* 手机端 Banner 按钮下调 */
     .slider-controls-container {
         bottom: 10px;
+    }
+
+    .page-header {
+        padding: 60px 20px;
+    }
+
+    .page-header h1 {
+        font-size: 2.2rem;
+    }
+
+    .page-header p {
+        font-size: 1rem;
     }
 
     footer {
@@ -753,8 +801,15 @@ footer h3 {
     }
     
     .social-icon img {
-        width: 16px;
-        height: 16px;
+        width: 18px;
+        height: 18px;
+    }
+
+    /* 手机端同步缩放比例偏大的 X 和 TikTok 图标 */
+    .social-icon[title="X"] img,
+    .social-icon[title="TikTok"] img {
+        width: 14px;
+        height: 14px;
     }
     
     .footer-links, .footer-contact {
