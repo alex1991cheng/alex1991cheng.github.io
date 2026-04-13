@@ -1,53 +1,15 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products - Valtecs</title>
+    <title>VALTECS | Pal for Wheels | Professional Auto Parts & Accessories</title>
+        <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+    <link rel="icon" href="icons/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="css/style.css">
     <style>
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-top: 40px;
-        }
-        
-        .product-card {
-            background-color: var(--text-light);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: var(--transition);
-        }
-        
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-        
-        .product-img {
-            height: 250px;
-            background-size: cover;
-            background-position: center;
-        }
-        
-        .product-info {
-            padding: 25px;
-        }
-        
-        .product-info h3 {
-            color: var(--secondary-color);
-            margin-bottom: 10px;
-            font-size: 1.3rem;
-        }
-        
-        .product-info p {
-            color: var(--text-muted);
-            margin-bottom: 20px;
-            font-size: 0.95rem;
-        }
-        
         .product-category-section {
             margin-bottom: 80px;
         }
@@ -73,7 +35,7 @@
         <div class="container">
             <div class="logo">
                 <a href="index.html">
-                    <img src="images/valtecs_logo.png" alt="Valtecs Logo">
+                    <img src="images/valtecs_logo.svg" alt="Valtecs Logo">
                 </a>
             </div>
             <nav>
@@ -83,7 +45,15 @@
                     <li><a href="support.html">Support</a></li>
                     <li><a href="about.html">About Us</a></li>
                     <li><a href="contact.html">Contact</a></li>
-                </ul>
+                                </ul>
+                <div class="nav-search">
+                    <form action="search.html" method="GET">
+                        <input type="text" name="q" placeholder="Search..." class="search-input">
+                        <button type="submit" class="search-btn" aria-label="Search">
+                            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        </button>
+                    </form>
+                </div>
             </nav>
             <div class="mobile-menu-btn">
                 <span></span>
@@ -184,7 +154,7 @@
             <div class="container">
                 <h2>Ready to buy?</h2>
                 <p>Find our complete product catalog on Amazon.</p>
-                <a href="https://www.amazon.com/valtecs" target="_blank" class="btn btn-primary btn-large">Shop on Amazon</a>
+                <a href="https://www.amazon.com/valtecs" target="_blank" class="btn btn-primary">SHOP ON AMAZON</a>
             </div>
         </section>
     </main>
@@ -193,8 +163,8 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <img src="images/valtecs_logo.png" alt="Valtecs Logo" class="footer-logo">
-                    <p>Valtecs – Pal for Wheels.<br>Professional auto parts engineered for quality, fit, and durability.</p>
+                    <img src="images/valtecs_logo_white.svg" alt="Valtecs Logo" class="footer-logo">
+                    <p>VALTECS - Pal for Wheels.<br>Professional auto parts and accessories engineered for quality, fit, and durability.</p>
                 </div>
                 <div class="footer-links">
                     <h3>Quick Links</h3>
@@ -208,8 +178,14 @@
                 </div>
                 <div class="footer-contact">
                     <h3>Contact Us</h3>
-                    <p>Email: support@valtecs.com</p>
-                    <p>Customer Service: 1-800-VALTECS</p>
+                    <p>Email: support@val-tecs.com</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon" title="Facebook"><img src="icons/facebook.svg" alt="Facebook"></a>
+                        <a href="#" class="social-icon" title="Instagram"><img src="icons/instagram.svg" alt="Instagram"></a>
+                        <a href="#" class="social-icon" title="X"><img src="icons/x.svg" alt="X"></a>
+                        <a href="#" class="social-icon" title="YouTube"><img src="icons/Youtube.svg" alt="YouTube"></a>
+                        <a href="#" class="social-icon" title="TikTok"><img src="icons/tiktok.svg" alt="TikTok"></a>
+                    </div>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -221,3 +197,11 @@
     <script src="js/main.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+

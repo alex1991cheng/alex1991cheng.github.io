@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VALTECS | Pal for Wheels | Professional Auto Parts & Accessories</title>
+        <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+    <link rel="icon" href="icons/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .search-header {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            padding: 80px 0;
+            text-align: center;
+            border-bottom: 4px solid var(--primary-color);
+        }
+        .search-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .search-results-container {
+            padding: 80px 0;
+            min-height: 50vh;
+        }
+        .search-query-text {
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .no-results {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            padding: 40px;
+            grid-column: 1 / -1;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/valtecs_logo.svg" alt="Valtecs Logo">
+                </a>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="support.html">Support</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="nav-search">
+                    <form action="search.html" method="GET">
+                        <input type="text" name="q" placeholder="Search..." class="search-input">
+                        <button type="submit" class="search-btn" aria-label="Search">
+                            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        </button>
+                    </form>
+                </div>
+            </nav>
+            <div class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="search-header">
+            <div class="container">
+                <h1>Search Results</h1>
+                <p>Showing results for: <span id="searchQuery" class="search-query-text">...</span></p>
+            </div>
+        </section>
+
+        <section class="search-results-container bg-light">
+            <div class="container">
+                <div class="categories-grid" id="searchResults">
+                    <!-- Search results will be injected here by JS -->
+                    <div class="no-results">Loading results...</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer style="background-color: var(--secondary-color); color: var(--text-light); padding: 40px 0; text-align: center; margin-top: auto;">
+        <div class="container">
+            <div class="footer-content" style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+                <div class="logo">
+                    <img src="images/valtecs_logo_white.svg" alt="Valtecs Logo" class="footer-logo" style="height: 40px; opacity: 0.8;">
+                </div>
+                <p>&copy; 2024 Valtecs. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple client-side search simulation
+        const urlParams = new URLSearchParams(window.location.search);
+        const query = urlParams.get('q') || '';
+        
+        const queryElement = document.getElementById('searchQuery');
+        const resultsContainer = document.getElementById('searchResults');
+        
+        if (query.trim() !== '') {
+            queryElement.textContent = '"' + query + '"';
+            
+            // Mock data for search results matching Valtecs site content
+            const mockData = [
+                { title: "Performance Brake Pads", desc: "Engineered for optimal stopping power and reduced dust for daily driving and performance applications.", link: "product-detail.html", img: "images/banner_car.jpg" },
+                { title: "Suspension Kits", desc: "Complete suspension upgrades providing improved handling, comfort, and durability on all road surfaces.", link: "product-detail.html", img: "images/banner_car.jpg" },
+                { title: "Engine Filters", desc: "High-efficiency air and oil filters designed to protect your engine and maximize performance.", link: "product-detail.html", img: "images/banner_car.jpg" },
+                { title: "Heavy-Duty Towing Accessories", desc: "Built for maximum strength and reliability when hauling heavy loads across rugged terrain.", link: "product-detail.html", img: "images/banner_truck.jpg" },
+                { title: "Cargo Management", desc: "Secure your load with our premium tie-downs, bed extenders, and organization systems.", link: "product-detail.html", img: "images/banner_truck.jpg" },
+                { title: "Performance Exhausts", desc: "Enhance power delivery and signature sound with our precision-engineered exhaust systems.", link: "product-detail.html", img: "images/banner_moto.jpg" }
+            ];
+
+            // Simple search logic
+            const lowerQuery = query.toLowerCase();
+            const filteredResults = mockData.filter(item => 
+                item.title.toLowerCase().includes(lowerQuery) || 
+                item.desc.toLowerCase().includes(lowerQuery)
+            );
+
+            if (filteredResults.length > 0) {
+                resultsContainer.innerHTML = '';
+                filteredResults.forEach(item => {
+                    resultsContainer.innerHTML += `
+                        <div class="category-card">
+                            <div class="card-img" style="background-image: url('${item.img}');"></div>
+                            <div class="card-content">
+                                <h3>${item.title}</h3>
+                                <p>${item.desc}</p>
+                                <a href="${item.link}" class="btn btn-outline">View Details</a>
+                            </div>
+                        </div>
+                    `;
+                });
+            } else {
+                resultsContainer.innerHTML = `<div class="no-results">No results found for "${query}". Please try a different keyword.</div>`;
+            }
+        } else {
+            queryElement.textContent = 'All Categories';
+            resultsContainer.innerHTML = `<div class="no-results">Please enter a keyword to search.</div>`;
+        }
+    </script>
+    <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
