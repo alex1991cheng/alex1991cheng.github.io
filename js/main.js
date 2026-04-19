@@ -1,4 +1,29 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Header shrink on scroll
+    const header = document.querySelector('header');
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+
+    window.addEventListener('scroll', () => {
+        lastScrollY = window.scrollY;
+        
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                if (lastScrollY > 50) {
+                    if (!header.classList.contains('shrink')) {
+                        header.classList.add('shrink');
+                    }
+                } else {
+                    if (header.classList.contains('shrink')) {
+                        header.classList.remove('shrink');
+                    }
+                }
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+
     // Mobile Menu Toggle
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     const navLinks = document.querySelector('.nav-links');
@@ -184,5 +209,95 @@ document.addEventListener('DOMContentLoaded', () => {
             // Open the mailto link
             window.location.href = mailtoLink;
         });
+    }
+
+    // Support Page Resource Center Logic
+    const resourceTabs = document.querySelectorAll('.tab-btn');
+    const resourceGrids = document.querySelectorAll('.resource-grid');
+    const resourceSearchInput = document.getElementById('resource-search-input');
+    const noResourceResults = document.getElementById('no-resource-results');
+
+    if (resourceTabs.length > 0 && resourceSearchInput) {
+        // Tab Switching
+        resourceTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Update active tab button
+                resourceTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                // Update active grid
+                const targetId = tab.getAttribute('data-target');
+                resourceGrids.forEach(grid => {
+                    if (grid.id === targetId) {
+                        grid.classList.add('active');
+                    } else {
+                        grid.classList.remove('active');
+                    }
+                });
+
+                // Re-trigger search to update visibility in the newly active tab
+                triggerResourceSearch();
+            });
+        });
+
+        // Search Filtering
+        function triggerResourceSearch() {
+            const query = resourceSearchInput.value.toLowerCase().trim();
+            let hasVisibleCards = false;
+
+            if (query === '') {
+                // If search is empty, revert to tab logic
+                document.querySelector('.resource-tabs').style.display = 'flex';
+                
+                resourceGrids.forEach(grid => {
+                    // Only show cards in the active grid, hide others
+                    if (grid.classList.contains('active')) {
+                        grid.style.display = 'grid'; // Restore grid layout
+                        const cards = grid.querySelectorAll('.resource-card');
+                        cards.forEach(card => card.style.display = 'flex');
+                        if (cards.length > 0) hasVisibleCards = true;
+                    } else {
+                        grid.style.display = ''; // Let CSS handle it (display: none via active class logic)
+                        const cards = grid.querySelectorAll('.resource-card');
+                        cards.forEach(card => card.style.display = 'none');
+                    }
+                });
+            } else {
+                // If searching, hide tabs and search across ALL grids
+                document.querySelector('.resource-tabs').style.display = 'none';
+                
+                resourceGrids.forEach(grid => {
+                    let gridHasMatches = false;
+                    const cards = grid.querySelectorAll('.resource-card');
+                    
+                    cards.forEach(card => {
+                        const titleData = card.getAttribute('data-title') || '';
+                        if (titleData.includes(query)) {
+                            card.style.display = 'flex';
+                            gridHasMatches = true;
+                            hasVisibleCards = true;
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                    
+                    // Force the grid to be visible if it has matches, even if it's not the 'active' tab
+                    if (gridHasMatches) {
+                        grid.style.display = 'grid';
+                    } else {
+                        grid.style.display = 'none';
+                    }
+                });
+            }
+
+            // Show or hide "No results" message
+            if (hasVisibleCards) {
+                noResourceResults.style.display = 'none';
+            } else {
+                noResourceResults.style.display = 'block';
+            }
+        }
+
+        resourceSearchInput.addEventListener('input', triggerResourceSearch);
     }
 });
