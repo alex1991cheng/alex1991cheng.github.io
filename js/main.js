@@ -9,14 +9,14 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (!ticking) {
             window.requestAnimationFrame(() => {
-                if (lastScrollY > 50) {
-                    if (!header.classList.contains('shrink')) {
-                        header.classList.add('shrink');
-                    }
-                } else {
-                    if (header.classList.contains('shrink')) {
-                        header.classList.remove('shrink');
-                    }
+                // Add a hysteresis/deadzone to prevent jittering
+                // Trigger shrink when scrolling down past 80px
+                if (lastScrollY > 80 && !header.classList.contains('shrink')) {
+                    header.classList.add('shrink');
+                } 
+                // Only trigger unshrink when scrolling back up past 20px
+                else if (lastScrollY < 20 && header.classList.contains('shrink')) {
+                    header.classList.remove('shrink');
                 }
                 ticking = false;
             });
@@ -211,13 +211,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Support Page Resource Center Logic
+        // Support Page Resource Center Logic
     const resourceTabs = document.querySelectorAll('.tab-btn');
     const resourceGrids = document.querySelectorAll('.resource-grid');
     const resourceSearchInput = document.getElementById('resource-search-input');
     const noResourceResults = document.getElementById('no-resource-results');
+    const searchHintElement = document.getElementById('resource-search-hint'); // 新增的底部提示语
 
     if (resourceTabs.length > 0 && resourceSearchInput) {
+        
+        // On load, assign an original index to each card to maintain order later
+        resourceGrids.forEach(grid => {
+            const cards = grid.querySelectorAll('.resource-card:not(.resource-list-header)');
+            cards.forEach((card, index) => {
+                card.setAttribute('data-original-index', index);
+            });
+        });
+
         // Tab Switching
         resourceTabs.forEach(tab => {
             tab.addEventListener('click', () => {
@@ -244,21 +254,49 @@ document.addEventListener('DOMContentLoaded', () => {
         function triggerResourceSearch() {
             const query = resourceSearchInput.value.toLowerCase().trim();
             let hasVisibleCards = false;
-
-            if (query === '') {
+            
+            // Check if we are currently searching
+            const isSearching = query.length > 0;
+            
+            if (!isSearching) {
                 // If search is empty, revert to tab logic
                 document.querySelector('.resource-tabs').style.display = 'flex';
                 
+                // 显示底部提示暗示用户搜索
+                if (searchHintElement) searchHintElement.style.display = 'flex';
+                
+                // Hide the global search header if it exists
+                const globalHeader = document.getElementById('global-search-header');
+                if (globalHeader) globalHeader.style.display = 'none';
+                
                 resourceGrids.forEach(grid => {
+                    // Show the specific grid's header
+                    const gridHeader = grid.querySelector('.resource-list-header');
+                    if (gridHeader) gridHeader.style.display = 'grid';
+                    
                     // Only show cards in the active grid, hide others
                     if (grid.classList.contains('active')) {
-                        grid.style.display = 'grid'; // Restore grid layout
-                        const cards = grid.querySelectorAll('.resource-card');
-                        cards.forEach(card => card.style.display = 'flex');
-                        if (cards.length > 0) hasVisibleCards = true;
+                        grid.style.display = ''; // Let CSS handle it (display: block via active class logic)
+                        const cards = Array.from(grid.querySelectorAll('.resource-card:not(.resource-list-header)'));
+                        
+                        // 还原原始排序
+                        cards.sort((a, b) => parseInt(a.getAttribute('data-original-index')) - parseInt(b.getAttribute('data-original-index')));
+                        
+                        cards.forEach((card, index) => {
+                            grid.appendChild(card); // 重新挂载回 DOM 保证顺序
+                            if (index < 6) { // 限制只显示6个
+                                card.style.display = ''; // Revert to grid layout defined in CSS
+                                // For videos, make sure the "Watch Video" button is visible
+                                const videoBtn = card.querySelector('a[href*=".mp4"]');
+                                if (videoBtn) videoBtn.style.display = '';
+                                hasVisibleCards = true;
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        });
                     } else {
                         grid.style.display = ''; // Let CSS handle it (display: none via active class logic)
-                        const cards = grid.querySelectorAll('.resource-card');
+                        const cards = grid.querySelectorAll('.resource-card:not(.resource-list-header)');
                         cards.forEach(card => card.style.display = 'none');
                     }
                 });
@@ -266,27 +304,74 @@ document.addEventListener('DOMContentLoaded', () => {
                 // If searching, hide tabs and search across ALL grids
                 document.querySelector('.resource-tabs').style.display = 'none';
                 
+                // 隐藏底部的常规提示，如果没搜到东西会显示 "No results"
+                if (searchHintElement) searchHintElement.style.display = 'none';
+                
+                // Show global search header, hide individual grid headers
+                let globalHeader = document.getElementById('global-search-header');
+                
+                // Create global header if it doesn't exist
+                if (!globalHeader) {
+                    const firstGrid = document.querySelector('.resource-grid');
+                    globalHeader = document.createElement('div');
+                    globalHeader.id = 'global-search-header';
+                    globalHeader.className = 'resource-list-header';
+                    globalHeader.innerHTML = `
+                        <div>Model / Name</div>
+                        <div>SKU</div>
+                        <div>Type</div>
+                        <div>Document</div>
+                    `;
+                    firstGrid.parentNode.insertBefore(globalHeader, firstGrid);
+                }
+                globalHeader.style.display = 'grid';
+                
+                let allMatchedCards = []; // 跨网格收集所有匹配的卡片
+
                 resourceGrids.forEach(grid => {
-                    let gridHasMatches = false;
-                    const cards = grid.querySelectorAll('.resource-card');
+                    // Hide individual grid headers during search
+                    const gridHeader = grid.querySelector('.resource-list-header');
+                    if (gridHeader) gridHeader.style.display = 'none';
+                    
+                    const cards = Array.from(grid.querySelectorAll('.resource-card:not(.resource-list-header)'));
                     
                     cards.forEach(card => {
                         const titleData = card.getAttribute('data-title') || '';
-                        if (titleData.includes(query)) {
-                            card.style.display = 'flex';
-                            gridHasMatches = true;
-                            hasVisibleCards = true;
-                        } else {
-                            card.style.display = 'none';
+                        const rawText = card.innerText.toLowerCase(); // 获取所有文本用于全量匹配
+                        let score = 0;
+
+                        if (titleData === query) {
+                            score += 100; // 精准匹配
+                        } else if (titleData.includes(query)) {
+                            score += 50; // 标题包含
+                            if (titleData.startsWith(query)) score += 20; // 标题以关键字开头，权重更高
+                        } else if (rawText.includes(query)) {
+                            score += 10; // 内容(如SKU、Type等)包含
                         }
+
+                        if (score > 0) {
+                            allMatchedCards.push({ card: card, score: score, grid: grid });
+                        }
+                        card.style.display = 'none'; // 先全部隐藏
                     });
                     
-                    // Force the grid to be visible if it has matches, even if it's not the 'active' tab
-                    if (gridHasMatches) {
-                        grid.style.display = 'grid';
-                    } else {
-                        grid.style.display = 'none';
-                    }
+                    // Force the grid container to be visible if it has matches or we are searching
+                    // (we need all grids visible to show all matched cards together)
+                    grid.style.display = 'block';
+                });
+
+                // 根据关联性分数对所有匹配项进行降序排序
+                allMatchedCards.sort((a, b) => b.score - a.score);
+
+                // 重新渲染匹配的卡片
+                allMatchedCards.forEach(item => {
+                    item.card.style.display = ''; // 恢复显示
+                    const videoBtn = item.card.querySelector('a[href*=".mp4"]');
+                    if (videoBtn) videoBtn.style.display = '';
+                    
+                    // 将其重新附加到所在的网格末尾，以实现视觉上的排序
+                    item.grid.appendChild(item.card);
+                    hasVisibleCards = true;
                 });
             }
 
@@ -298,6 +383,32 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
+        // Initialize display state on load (limits to 6)
+        triggerResourceSearch();
+        
         resourceSearchInput.addEventListener('input', triggerResourceSearch);
+    }
+
+    // Scroll Reveal Animation for About Us Heritage section
+    const revealElements = document.querySelectorAll('.reveal-on-scroll');
+    if (revealElements.length > 0) {
+        const revealOptions = {
+            root: null,
+            rootMargin: '0px 0px -100px 0px', // Trigger slightly before the element comes into full view
+            threshold: 0.15
+        };
+
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target); // Stop observing once it has become visible (triggers only once)
+                }
+            });
+        }, revealOptions);
+
+        revealElements.forEach(el => {
+            revealObserver.observe(el);
+        });
     }
 });
