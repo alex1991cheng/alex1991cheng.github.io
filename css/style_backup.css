@@ -1,0 +1,1664 @@
+/* Variables & Brand Colors */
+:root {
+    --primary-color: #f97106; /* Assuming a strong orange */
+    --secondary-color: #242424; /* Dark grey/black for contrast */
+    --accent-color: #ffce2f; /* Yellow/Gold accent */
+    --text-dark: #333333;
+    --text-light: #FFFFFF;
+    --text-muted: #666666;
+    --bg-light: #F5F5F5;
+    --bg-dark: #1A1A1A;
+    --font-main: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --transition: all 0.3s ease;
+}
+
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-main);
+    color: var(--text-dark);
+    line-height: 1.6;
+    background-color: var(--text-light);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition);
+}
+
+ul {
+    list-style: none;
+}
+
+.container {
+    width: 100%;
+    max-width: 1440px; /* 增加整体宽度 */
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.section {
+    padding: 80px 0;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    color: var(--secondary-color);
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    box-shadow: 0 4px 6px rgba(249, 113, 6, 0.2); /* 增加符合品牌色的初始柔和阴影 */
+}
+
+.btn-primary:hover {
+    background-color: #e56505; /* 微调为更平滑的变暗橙色，而不是跨度太大的暗红色 */
+    transform: translateY(-3px); /* 加大上浮距离，增强悬停互动感 */
+    box-shadow: 0 8px 15px rgba(249, 113, 6, 0.3); /* 悬停时增强品牌色阴影，营造发光感 */
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: var(--text-light);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-secondary:hover {
+    background-color: #000000;
+    transform: translateY(-3px); /* 同样增加悬停浮动 */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+}
+
+.btn-outline:hover {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(249, 113, 6, 0.2);
+}
+
+.btn-large {
+    padding: 12px 32px;
+    font-size: 1.05rem;
+}
+
+/* Header & Navigation */
+header {
+    background-color: var(--secondary-color);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: background-color 0.3s ease; /* 防止 header 本身发生高度跳变 */
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    transition: height 0.3s ease; /* 导航栏高度过渡动画 */
+    will-change: height; /* 提示浏览器优化性能 */
+}
+
+header.shrink .container {
+    height: 60px; /* 下滑时导航栏缩小的高度 */
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo a {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 50px;
+    width: auto;
+    display: block;
+    transition: height 0.3s ease; /* Logo缩小过渡动画 */
+}
+
+header.shrink .logo img {
+    height: 38px; /* 下滑时Logo缩小的高度 */
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.95rem;
+    color: var(--text-light);
+    padding: 10px 0;
+    position: relative;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background-color: var(--accent-color);
+    transition: var(--transition);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.nav-links a.active::after {
+    width: 100%;
+    background-color: var(--primary-color);
+}
+
+.mobile-menu-btn {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.mobile-menu-btn span {
+    width: 25px;
+    height: 3px;
+    background-color: var(--text-light);
+    transition: var(--transition);
+}
+
+/* Hero Slider */
+.hero-slider {
+    position: relative;
+    height: 600px;
+    overflow: hidden;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* 将背景图相关的样式移到专门的背景层 */
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    display: flex;
+    align-items: center;
+}
+
+/* 专门用于承载背景图并实现细微位移动画的层 */
+.slide-bg {
+    position: absolute;
+    top: 0;
+    left: -4%; /* 回退一部分预留空间 */
+    width: 108%; /* 回退一部分宽度 */
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+    transform: translate3d(0, 0, 0); /* 使用 translate3d 开启硬件加速，解决卡顿问题 */
+    transition: transform 10s linear; 
+    will-change: transform; /* 提示浏览器提前优化 */
+}
+
+.slide.active {
+    opacity: 1;
+    z-index: 1;
+}
+
+/* 激活时，所有图片统一向右平移 */
+.slide.active .slide-bg {
+    transform: translate3d(3.5%, 0, 0); /* 将平移距离调整为之前的 2% 和 5% 的中间值，并保持硬件加速 */
+}
+
+.slide-content {
+    color: var(--text-light);
+    max-width: 600px;
+}
+
+.slide-content h2 {
+    color: var(--accent-color);
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.slide-content h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.slide-content p {
+    font-size: 1.4rem;
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+
+.slider-controls-container {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    z-index: 2;
+}
+
+.slider-controls-container button {
+    background-color: transparent;
+    border: none;
+    width: 14px;
+    height: 14px;
+    padding: 0;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.5; /* 未点击时灰色/半透明 */
+    margin: 0 5px; /* 和圆点之间拉开一点距离 */
+}
+
+.slider-controls-container button img {
+    width: 100%;
+    height: 100%;
+    /* 将黑色图标转为白色以便着色，并添加 SVG stroke 加粗效果（通过 drop-shadow 模拟或直接加粗线条） */
+    filter: invert(1) drop-shadow(0 0 2px white) drop-shadow(0 0 1px white); 
+    transition: var(--transition);
+}
+
+/* 电脑端悬停变为橙色，并且去除 :active 状态可能导致的点击后驻留问题 */
+@media (hover: hover) {
+    .slider-controls-container button:hover {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+
+    .slider-controls-container button:hover img {
+        /* 将白色转为主题橙色 (#f97106) 的滤镜效果，同时保持加粗阴影 */
+        filter: invert(51%) sepia(85%) saturate(2335%) hue-rotate(352deg) brightness(101%) contrast(97%) drop-shadow(0 0 2px #f97106) drop-shadow(0 0 1px #f97106);
+    }
+}
+
+/* 无论电脑还是手机，按下时变成橙色 */
+.slider-controls-container button:active,
+.slider-controls-container button.is-clicked {
+    opacity: 1 !important;
+    transform: scale(1.3) !important; /* 点击时明显放大，提供更强的视觉反馈 */
+}
+
+/* 重点修复：在触摸设备上，使用 :active 或者额外的 JavaScript class 强制覆盖颜色 */
+.slider-controls-container button:active img,
+.slider-controls-container button.is-clicked img {
+    filter: invert(51%) sepia(85%) saturate(2335%) hue-rotate(352deg) brightness(101%) contrast(97%) drop-shadow(0 0 2px #f97106) drop-shadow(0 0 1px #f97106) !important;
+    transition: filter 0.1s ease !important; /* 让变色更干脆 */
+}
+
+.slider-dots {
+    display: flex;
+    gap: 10px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(255,255,255,0.5); /* 未点击时灰色/半透明 */
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.dot.active,
+.dot:hover {
+    background-color: var(--primary-color);
+    transform: scale(1.2);
+}
+
+/* About Intro */
+.about-intro {
+    text-align: center;
+    background-color: var(--text-light);
+}
+
+.about-intro .lead {
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.about-intro p {
+    max-width: 800px;
+    margin: 0 auto 30px;
+    color: var(--text-muted);
+}
+
+/* About Page Styles */
+.about-story {
+    position: relative;
+    overflow: hidden;
+}
+
+.about-story::after {
+    content: 'V';
+    position: absolute;
+    bottom: -14%; /* 往下移动，使其底部与下方灰色区域完美连接 */
+    right: -2%;
+    font-size: 45vw;
+    /* 使用几何无衬线字体，确保 V 的左右笔画粗细完全一致 */
+    font-family: 'Century Gothic', 'Futura', 'Tw Cen MT', 'Montserrat', sans-serif;
+    font-weight: 900; /* 将字重加到最大 */
+    -webkit-text-stroke: 1.5vw var(--bg-light); /* 与下方 Heritage 版块的浅灰色相同 */
+    font-style: normal;
+    color: var(--bg-light); /* 与下方 Heritage 版块的浅灰色相同 */
+    opacity: 1; /* 取消透明度，形成高级的负空间镂空效果 */
+    line-height: 0.8;
+    z-index: 0;
+    pointer-events: none;
+    user-select: none;
+}
+
+@media (max-width: 768px) {
+    .about-story::after {
+        font-size: 80vw;
+        bottom: -5%; /* 手机端同样下移连接底部 */
+        right: -10%;
+        -webkit-text-stroke: 2.5vw var(--bg-light);
+        opacity: 1;
+    }
+}
+
+.about-story .container {
+    position: relative;
+    z-index: 1;
+}
+
+.story-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+@media (min-width: 992px) {
+    .story-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+    }
+}
+
+.story-content p {
+    color: var(--text-muted);
+    margin-bottom: 1.2rem;
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+.story-content .lead {
+    font-size: 1.4rem;
+    color: var(--secondary-color);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.highlight-text {
+    font-weight: 700;
+    color: var(--primary-color);
+    font-size: 1.2rem;
+}
+
+/* Accent Line Paragraphs */
+.accent-paragraph {
+    border-left: 3px solid var(--primary-color);
+    padding-left: 20px;
+    margin: 25px 0;
+    position: relative;
+}
+
+.accent-paragraph p:last-child {
+    margin-bottom: 0;
+}
+
+.brand-quote {
+    margin-top: 40px;
+    padding: 30px 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+}
+
+.brand-quote p {
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--primary-color);
+    font-weight: 600;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.story-image img {
+    width: 100%;
+    /* 移除圆角和悬浮动效，保持最简单大气的直角边框 */
+}
+
+.about-heritage {
+    position: relative;
+    overflow: hidden;
+}
+
+.about-heritage::after {
+    content: 'T';
+    position: absolute;
+    bottom: -18%; /* 稍微下移，以适应更大的字体 */
+    left: -5%; /* 稍微左移，以适应更大的字体 */
+    font-size: 75vw; /* 将 T 放大，使其更具视觉冲击力 */
+    font-family: 'Century Gothic', 'Futura', 'Tw Cen MT', 'Montserrat', sans-serif;
+    font-weight: 900;
+    -webkit-text-stroke: 1.5vw var(--text-light); /* 与上方 Story 版块的白色相同 */
+    font-style: normal;
+    color: var(--text-light); /* 与上方 Story 版块的白色相同 */
+    opacity: 1; /* 取消透明度，形成高级的负空间镂空效果 */
+    line-height: 0.8;
+    z-index: 0;
+    pointer-events: none;
+    user-select: none;
+}
+
+@media (max-width: 768px) {
+    .about-heritage::after {
+        font-size: 110vw; /* 手机端同步放大 */
+        bottom: -8%;
+        left: -12%;
+        -webkit-text-stroke: 2.5vw var(--text-light);
+        opacity: 1;
+    }
+}
+
+.about-heritage .container {
+    position: relative;
+    z-index: 1;
+}
+
+/* Heritage Block Styles (Minimalist alternating layout) */
+.heritage-block {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin-bottom: 80px;
+    align-items: center;
+}
+
+.heritage-block:last-child {
+    margin-bottom: 0;
+}
+
+@media (min-width: 992px) {
+    .heritage-block {
+        flex-direction: row;
+        gap: 80px;
+    }
+    
+    .heritage-block:nth-child(even) {
+        flex-direction: row-reverse;
+    }
+    
+    .heritage-image, .heritage-text {
+        flex: 1;
+    }
+}
+
+.heritage-text h3 {
+    font-size: 2.2rem;
+    color: var(--secondary-color);
+    margin-bottom: 25px;
+    font-weight: 700;
+}
+
+.heritage-text p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+}
+
+.heritage-text p:last-child {
+    margin-bottom: 0;
+}
+
+.heritage-image-placeholder {
+    width: 100%;
+    aspect-ratio: 4/3;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    font-size: 1.2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Skeleton Loading Animation */
+.heritage-image-placeholder::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+    background-image: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0,
+        rgba(255, 255, 255, 0.4) 20%,
+        rgba(255, 255, 255, 0.6) 60%,
+        rgba(255, 255, 255, 0)
+    );
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* 在这里预设未来真实图片的样式，保证没有圆角和动效 */
+.heritage-image img {
+    width: 100%;
+    display: block;
+}
+
+.heritage-today {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 100px;
+    padding-top: 60px;
+    border-top: 1px solid #e0e0e0;
+}
+
+@media (min-width: 992px) {
+    .heritage-today {
+        flex-direction: row;
+        gap: 80px;
+        align-items: flex-start;
+    }
+    
+    .heritage-today-title {
+        flex: 1;
+    }
+    
+    .heritage-today-content {
+        flex: 2;
+    }
+}
+
+.heritage-today-title h3 {
+    font-size: 2.2rem;
+    color: var(--secondary-color);
+    margin-bottom: 0;
+    font-weight: 700;
+}
+
+.heritage-today-content p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+}
+
+.heritage-today-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* Scroll Reveal Animation */
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+    will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Product Categories Grid */
+.bg-light {
+    background-color: var(--bg-light);
+}
+
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+@media (min-width: 1200px) {
+    .categories-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.category-card {
+    background-color: var(--text-light);
+    border-radius: 12px; /* 略微增加圆角，更现代 */
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.04); /* 降低初始阴影的生硬度 */
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease; /* 使用更高级的弹性曲线动画 */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.category-card:hover {
+    transform: translateY(-8px); /* 悬浮高度稍微收敛，避免过度夸张 */
+    box-shadow: 0 15px 35px rgba(0,0,0,0.12); /* 加深悬停时的长投影效果 */
+}
+
+.card-img {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+}
+
+.card-content {
+    padding: 25px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.card-content h3 {
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
+.card-content p {
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+    flex-grow: 1;
+}
+
+.card-content .btn {
+    align-self: center;
+}
+
+/* Page Header (Subpages) */
+.page-header {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    padding: 100px 0;
+    text-align: center;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px; /* 电脑端最小高度保证 */
+}
+
+.page-header h1 {
+    font-size: 3rem;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+
+.page-header p {
+    font-size: 1.2rem;
+    color: #f8f8f8; /* 提亮副标题颜色，从 #ccc 变更为更亮的近白色 */
+    font-weight: 500; /* 稍微增加字重，提升在深色背景图上的可读性 */
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* CTA Section */
+.cta-section {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    text-align: center;
+    padding: 40px 0; /* 覆盖默认的 80px section padding，显著降低高度 */
+}
+
+.cta-section h2 {
+    font-size: 2rem; /* 从 2.5rem 调小 */
+    text-transform: uppercase;
+    margin-bottom: 10px; /* 从 15px 调小 */
+}
+
+.cta-section p {
+    font-size: 1.1rem; /* 从 1.2rem 调小 */
+    margin-bottom: 20px; /* 从 30px 调小 */
+    color: #CCCCCC;
+}
+
+/* Footer */
+footer {
+    background-color: #111111;
+    color: #999999;
+    padding: 40px 0 20px; 
+}
+
+.footer-grid {
+    display: grid;
+    /* 
+      采用 Flex 思想结合 Grid：
+      左侧占尽剩余空间，右侧两列自动适应自身宽度。
+    */
+    grid-template-columns: 1fr auto auto;
+    gap: 40px; 
+    margin-bottom: 30px; 
+    /* 移除左右内边距，让 .container 自带的边距控制对齐 */
+}
+
+.footer-links, .footer-contact {
+    transform: none; /* 彻底移除平移，这会引发超框和滚动条问题 */
+}
+
+.footer-brand {
+    margin-left: 20px; /* 原来是右移50px，现在往左回退30px，即净右移20px */
+}
+
+.footer-logo {
+    height: 34px; /* 从 40px 缩小为目前的 6/7 */
+    margin-bottom: 15px; 
+    display: block; /* 避免行内元素的底部基线间隙 */
+}
+
+.footer-logo img {
+    height: 100%;
+    width: auto;
+    display: block;
+}
+
+.footer-brand p {
+    max-width: 420px; /* 增加宽度，防止长句子尴尬断行 */
+    line-height: 1.5; /* 稍微增加行高提升可读性 */
+    margin-bottom: 0;
+    color: #cccccc; /* 提亮颜色，与右侧 Quick Links 的文字颜色保持一致 */
+}
+
+footer h3 {
+    color: var(--text-light);
+    margin-bottom: 15px; 
+    font-size: 1.2rem;
+    text-transform: uppercase;
+}
+
+.footer-links ul li {
+    margin-bottom: 0; /* 彻底移除下边距 */
+    line-height: 1.4; /* 和左边文案保持完全一致的行高 */
+    padding-bottom: 5px; /* 用一点内边距微调间隙 */
+}
+
+.footer-links ul li a:hover {
+    color: var(--primary-color);
+}
+
+.footer-contact p {
+    margin-bottom: 0; 
+    line-height: 1.4; 
+    padding-bottom: 5px;
+    white-space: nowrap; /* 强制内容不换行 */
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: #333333;
+    border-radius: 50%;
+    color: var(--text-light);
+    transition: var(--transition);
+}
+
+.social-icon img {
+    width: 24px; /* Increase default size to match visually smaller SVGs */
+    height: 24px;
+    /* Invert black SVGs to white */
+    filter: invert(1);
+    transition: var(--transition);
+}
+
+/* Specific sizing to balance visual weights of different SVG viewboxes */
+.social-icon[title="X"] img,
+.social-icon[title="TikTok"] img {
+    width: 18px; /* Slightly smaller for SVGs that take up their full viewbox */
+    height: 18px;
+}
+
+.social-icon:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-3px);
+}
+
+.social-icon:hover img {
+    /* Keep it white when hovering over the orange background */
+    filter: invert(1);
+}
+
+.footer-bottom {
+    border-top: 1px solid #333333;
+    padding-top: 20px;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+/* Resource Center (Support Page) */
+.resource-header {
+    text-align: center;
+    margin-bottom: 40px; /* 将底部间距调大，让搜索框稍微下移一点 */
+}
+
+.resource-header .section-title {
+    margin-bottom: 10px; /* 覆盖全局 section-title 默认的 40px margin-bottom */
+}
+
+.resource-header p {
+    margin-bottom: 0; /* 移除 p 标签默认的底部间距 */
+}
+
+.resource-search {
+    max-width: 1000px; /* 进一步加宽，几乎贯穿主体内容区 */
+    margin: 0 auto 50px; /* 调整搜索框下方的间距 */
+    position: relative;
+}
+
+.resource-search input {
+    width: 100%;
+    padding: 15px 30px 15px 55px; /* 恢复原来的高度内边距，保持修长感 */
+    font-size: 1.1rem; /* 恢复原来的字体大小 */
+    border: 2px solid #e0e0e0;
+    border-radius: 30px; /* 恢复原本的圆角比例 */
+    outline: none;
+    transition: var(--transition);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.03); /* 保留高级阴影 */
+}
+
+.resource-search input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 8px 25px rgba(249, 113, 6, 0.15); /* 保留高级聚焦阴影 */
+}
+
+.resource-search svg {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+}
+
+.resource-tabs {
+    display: flex; /* 改回 flex，利用外层容器居中 */
+    justify-content: center;
+    background-color: #f1f1f1; /* 浅灰色胶囊底座 */
+    padding: 6px; /* 内部留白 */
+    border-radius: 50px; /* 胶囊形状 */
+    margin: 0 auto 50px;
+    width: max-content; /* 强制宽度为内部内容的最大宽度，避免被拉伸 */
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.05); /* 内阴影增加凹陷感 */
+}
+
+.tab-btn {
+    padding: 12px 40px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: transparent;
+    border: none;
+    border-radius: 40px; /* 内部按钮也为胶囊形 */
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 1;
+}
+
+.tab-btn:hover {
+    color: var(--secondary-color);
+}
+
+.tab-btn.active {
+    color: var(--primary-color);
+    background-color: #ffffff; /* 激活时变为白色浮块 */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08); /* 激活时增加投影，产生“凸起”效果 */
+}
+
+@media (max-width: 768px) {
+    .resource-tabs {
+        width: 100%;
+        max-width: 100%;
+        flex-direction: row;
+        border-radius: 50px;
+        box-sizing: border-box;
+    }
+    .tab-btn {
+        flex: 1;
+        padding: 10px 5px;
+        font-size: 0.85rem;
+        border-radius: 40px;
+        white-space: normal; /* 允许文字换行，防止撑爆 */
+        text-align: center;
+        line-height: 1.2;
+    }
+}
+
+.resource-grid {
+    display: none;
+    animation: fadeIn 0.4s ease;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.resource-grid.active {
+    display: block; /* 改为块级显示，用于列表布局 */
+}
+
+/* 列表头部标题栏 (类似表格表头) */
+.resource-list-header {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr; /* 四列比例 */
+    padding: 15px 20px;
+    background-color: #242424; /* 使用品牌主题黑242424 */
+    color: var(--text-light);
+    font-weight: 700;
+    font-size: 1.05rem;
+    border-radius: 4px 4px 0 0;
+    margin-bottom: 0;
+}
+
+/* 全局搜索模式下的表头容器限制，使其和下方内容宽度一致 */
+#global-search-header {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* 列表行样式 (类似表格行) */
+.resource-card {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr; /* 与表头比例一致 */
+    align-items: start; /* 改为顶部对齐，保证所有文本和第一行SKU对齐 */
+    padding: 20px;
+    background: #fff;
+    border-bottom: 1px solid #e0e0e0;
+    transition: background-color 0.2s ease;
+}
+
+/* 移除原有的卡片阴影、圆角和浮动特效，保持极简直列 */
+.resource-card:hover {
+    background-color: #f9f9f9;
+}
+
+/* 最后一个列表项的底部边框处理 */
+.resource-card:last-child {
+    border-bottom: 2px solid #e0e0e0;
+}
+
+/* 彻底隐藏原来的大图标和视频缩略图包装器 */
+.resource-icon-wrapper {
+    display: none;
+}
+
+/* 重构资源内容区，不再垂直排列，而是网格化 */
+.resource-content {
+    display: contents; /* 让内部元素直接参与外层的 grid 布局 */
+}
+
+/* 列 1：产品/部件名称 (SKU/Model) */
+.resource-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0;
+    font-weight: 500;
+    padding-right: 20px;
+}
+
+.resource-card h3 a {
+    color: var(--text-dark);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.resource-card h3 a:hover {
+    color: var(--primary-color);
+}
+
+/* 列 2 & 列 3：副标题或描述（被拆分为两列模拟 Serial / Date）*/
+/* 这里我们用 p 标签或 sku-list 容器来模拟中间的数据列 */
+.resource-card p,
+.resource-card .sku-list {
+    color: var(--text-muted);
+    font-size: 1rem;
+    margin-bottom: 0;
+}
+
+.resource-card .sku-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px; /* 上下多行SKU的间距，使其紧凑但可读 */
+}
+
+/* 列 4：操作按钮区 */
+.resource-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-start;
+    align-items: center; /* 垂直居中对齐图标和文字 */
+}
+
+/* 将按钮改为极简的文字链接风格，带图标，类似专业文档链接 */
+.resource-actions .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px; /* 图标与文字间距 */
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-transform: none;
+    position: relative; /* 为了下划线动画 */
+}
+
+.resource-actions .btn svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.2s ease;
+}
+
+.resource-actions .btn:hover svg {
+    transform: translateY(-2px); /* 悬停时小图标有一个活泼的上浮 */
+}
+
+/* 区分层级：主按钮 (Download / Watch Video) 使用品牌色，更显眼 */
+.resource-actions .btn-primary {
+    color: var(--primary-color);
+}
+.resource-actions .btn-primary:hover {
+    color: #e06000; /* 悬停时加深品牌色 */
+    background: transparent;
+    transform: none;
+    box-shadow: none;
+    text-decoration: underline; /* 明确的可点击暗示 */
+}
+
+/* 区分层级：次按钮 (View PDF) 使用深灰色，弱化但清晰 */
+.resource-actions .btn-outline {
+    color: var(--text-dark);
+}
+.resource-actions .btn-outline:hover {
+    color: var(--primary-color); /* 悬停时变成品牌色，产生互动感 */
+    background: transparent;
+    transform: none;
+    box-shadow: none;
+    text-decoration: underline;
+}
+
+/* 底部搜索提示框重构 - 极简文字版 */
+.search-hint {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 40px auto 20px;
+    padding: 10px 0;
+    max-width: 1200px; /* 恢复最大宽度，让文字自然居中 */
+    background: transparent; /* 去除白底 */
+    border: none; /* 去除边框 */
+    box-shadow: none; /* 去除阴影 */
+    color: #888; /* 使用更柔和的浅灰色 */
+    font-size: 0.95rem;
+    position: relative;
+}
+
+/* 去除侧边的竖线 */
+.search-hint::before {
+    display: none;
+}
+
+.search-hint strong {
+    color: var(--text-dark);
+    font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    /* 手机端 Support 列表响应式重构 (卡片流布局) */
+    .resource-list-header {
+        display: none; /* 隐藏电脑端的黑色大表头 */
+    }
+    
+    #global-search-header {
+        display: none !important; /* 隐藏全局搜索时的黑色大表头 */
+    }
+
+    .resource-card {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 20px 15px;
+        border: 1px solid #eee; /* 增加边框 */
+        border-radius: 8px; /* 增加圆角 */
+        margin-bottom: 15px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+    
+    .resource-card:last-child {
+        border-bottom: 1px solid #eee;
+    }
+
+    /* 列1: 标题重新排版 */
+    .resource-card h3 {
+        padding-right: 0;
+        font-size: 1.15rem;
+        font-weight: 600;
+        border-bottom: 1px dashed #eee;
+        padding-bottom: 10px;
+    }
+
+    /* 列2 & 列3: SKU 和 Type 增加前缀标识并并排显示 */
+    .resource-card p,
+    .resource-card .sku-list {
+        font-size: 0.9rem;
+    }
+    
+    /* 使用 nth-child 精准定位 SKU 和 Type，避免互相干扰 */
+    .resource-card > *:nth-child(2)::before {
+        content: 'SKU: ';
+        font-weight: 600;
+        color: var(--text-dark);
+        margin-bottom: 2px;
+    }
+    
+    .resource-card > *:nth-child(3)::before {
+        content: 'Type: ';
+        font-weight: 600;
+        color: var(--text-dark);
+    }
+
+    /* 列4: 按钮区铺满底部 */
+    .resource-actions {
+        margin-top: 10px;
+        padding-top: 15px;
+        border-top: 1px dashed #eee;
+        justify-content: space-between; /* 按钮分散对齐 */
+        width: 100%;
+    }
+    
+    .resource-actions .btn {
+        font-size: 0.9rem;
+    }
+
+    header .container {
+        height: 60px; /* 减小手机端导航栏高度 */
+    }
+
+    header.shrink .container {
+        height: 50px; /* 手机端下滑时进一步缩小 */
+    }
+
+    .logo img {
+        height: 40px;
+    }
+
+    header.shrink .logo img {
+        height: 32px; /* 手机端下滑时Logo相应缩小 */
+    }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 60px; /* 调整为与导航栏等高 */
+        left: 0;
+        width: 100%;
+        background-color: var(--secondary-color);
+        flex-direction: column;
+        padding: 20px 0;
+        box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+        text-align: center;
+        gap: 15px;
+        transition: top 0.3s ease; /* 让下拉菜单的位置也能平滑跟随导航栏变化 */
+    }
+
+    header.shrink .nav-links {
+        top: 50px; /* 导航栏缩小时，下拉菜单顶部位置相应上移 */
+    }
+    
+    .nav-links.active {
+        display: flex;
+    }
+
+    nav {
+        gap: 0; /* 去掉间距，让搜索框靠右 */
+        flex-grow: 1; /* 让 nav 占据中间的所有可用空间 */
+        justify-content: flex-end; /* 让内容靠右 */
+    }
+
+    /* 移动端搜索框下拉方案 */
+    .nav-search {
+        position: static; 
+        margin-left: 0;
+        margin-right: 15px; /* 与汉堡菜单图标留出一点间距 */
+    }
+
+    .nav-search form {
+        position: static;
+        border-bottom: none;
+    }
+    
+    .nav-search form.is-open,
+    .nav-search form:focus-within {
+        border-bottom: none;
+    }
+
+    /* 手机端搜索框包裹层（抽屉背景） */
+    .nav-search form::after {
+        content: '';
+        position: fixed; /* 使用 fixed 定位，脱离相对定位干扰 */
+        top: 60px; /* 跟随手机端导航栏新高度 */
+        left: 0;
+        width: 100vw; /* 强制占据 100% 视口宽度 */
+        height: 0;
+        background-color: var(--secondary-color); /* 与导航栏相同的黑色 */
+        border-bottom: 3px solid var(--accent-color);
+        box-shadow: 0 10px 10px rgba(0,0,0,0.2);
+        z-index: 997;
+        opacity: 0;
+        transition: height 0.3s ease, opacity 0.3s ease, top 0.3s ease;
+    }
+
+    header.shrink .nav-search form::after {
+        top: 50px;
+    }
+
+    .nav-search form.is-open::after,
+    .nav-search form:focus-within::after,
+    .search-input:focus ~ *,
+    .search-input:not(:placeholder-shown) ~ * {
+        height: 60px; /* 抽屉的高度 = 上间距10 + 框高40 + 下间距10 */
+        opacity: 1;
+    }
+
+    /* 手机端搜索框输入框隐藏时的处理 */
+    .search-input {
+        position: fixed; /* 使用 fixed 定位，完全脱离任何父元素的限制 */
+        top: 70px; /* 抽屉内容与导航栏留10px间隙 (60 + 10) */
+        left: 10px; 
+        right: 10px;
+        width: auto !important; /* 强制覆盖可能在别处设置的 width */
+        max-width: none !important; /* 强制覆盖 max-width */
+        padding: 0 15px;
+        height: 0; 
+        background-color: #3a3a3a; 
+        border: none;
+        border-radius: 4px;
+        transform: none; 
+        z-index: 998;
+        opacity: 0; 
+        overflow: hidden;
+        transition: height 0.3s ease, opacity 0.3s ease, top 0.3s ease;
+        box-sizing: border-box;
+    }
+
+    header.shrink .search-input {
+        top: 60px;
+    }
+
+    /* 搜索框下拉显示 */
+    .nav-search form.is-open .search-input,
+    .nav-search form:focus-within .search-input,
+    .search-input:focus,
+    .search-input:not(:placeholder-shown) {
+        position: fixed; /* 同样使用 fixed */
+        top: 70px; 
+        left: 10px;
+        right: 10px; 
+        width: auto !important; 
+        max-width: none !important; 
+        height: 40px; 
+        padding: 0 15px;
+        background-color: #3a3a3a;
+        border: 1px solid #555; 
+        border-bottom: none;
+        box-shadow: none;
+        opacity: 1; 
+        z-index: 998; 
+        box-sizing: border-box;
+    }
+
+    header.shrink .nav-search form.is-open .search-input,
+    header.shrink .nav-search form:focus-within .search-input,
+    header.shrink .search-input:focus,
+    header.shrink .search-input:not(:placeholder-shown) {
+        top: 60px;
+    }
+    
+    .mobile-menu-btn {
+        display: flex;
+        margin-left: 15px;
+    }
+    
+    .hero-slider {
+        height: 65vh; /* 从 80vh 缩短，避免占满整个屏幕 */
+        min-height: 400px; /* 同步缩短保底高度 */
+    }
+
+    /* 手机端替换为竖版背景图，并为竖图单独调整漂浮参数解决卡顿 */
+    .slide:nth-child(1) .slide-bg {
+        background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../images/banner_car_mobile.webp') !important;
+    }
+    .slide:nth-child(2) .slide-bg {
+        background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('../images/banner_moto_mobile.webp') !important;
+    }
+    .slide:nth-child(3) .slide-bg {
+        background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../images/banner_rv_mobile.webp') !important;
+    }
+    .slide:nth-child(4) .slide-bg {
+        background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('../images/banner_truck_mobile.webp') !important;
+    }
+
+    /* 手机端覆盖全局的 transform 参数 */
+    .slide-bg {
+        /* 在手机端调整平移比例和时间 */
+        /* 增加位移量让效果更明显，同时保持 10s 避免过于缓慢 */
+        transition: transform 10s linear; 
+    }
+    
+    .slide.active .slide-bg {
+        transform: translate3d(4%, 0, 0); /* 提升平移幅度到 4% */
+    }
+
+    .slide-content {
+        padding: 0 20px; /* 防止文字贴边 */
+    }
+
+    .slide-content h2 {
+        font-size: 1.2rem;
+    }
+
+    .slide-content h1 {
+        font-size: 2rem;
+    }
+
+    .slide-content p {
+        font-size: 1.1rem;
+    }
+
+    /* 手机端 Banner 按钮下调 */
+    .slider-controls-container {
+        bottom: 10px;
+    }
+
+    /* 手机端专用子页面背景图加载 */
+    #products-header {
+        background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../images/header_products_mobile.webp') !important;
+    }
+    
+    #support-header {
+        background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../images/header_support_mobile.webp') !important;
+    }
+    
+    #contact-header {
+        background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../images/header_contact_mobile.webp') !important;
+    }
+    
+    #about-header {
+        background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../images/banner_rv_mobile.webp') !important;
+    }
+
+    .page-header {
+        padding: 50px 20px;
+        min-height: 240px; /* 增加固定最小高度，使Banner更加高挑、有呼吸感 */
+        height: 240px; /* 强制统一高度，从180px提升至240px */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .page-header .container {
+        /* 在高度固定的情况下，若文字较多可适度隐藏或紧凑排列，但优先保证居中 */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .page-header h1 {
+        font-size: 2.2rem;
+        margin-bottom: 10px;
+    }
+
+    .page-header p {
+        font-size: 0.95rem; /* 稍微缩小字号防止多行时溢出 */
+        line-height: 1.4;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* 最多显示3行，超出省略，防止撑爆banner */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    footer {
+        padding: 30px 0 15px; 
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        padding-right: 0;
+        gap: 25px;
+        margin-bottom: 20px;
+    }
+
+    .footer-brand {
+        margin-left: 0; /* 手机端取消向右移动，恢复默认对齐 */
+    }
+
+    .footer-logo {
+        height: 26px; /* 手机端按 6/7 比例同步缩小（原30px） */
+        margin-bottom: 10px;
+    }
+
+    footer h3 {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+    }
+
+    .footer-brand p, 
+    .footer-links ul li, 
+    .footer-contact p {
+        font-size: 0.9rem;
+    }
+
+    .social-links {
+        margin-top: 15px;
+    }
+
+    .social-icon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .social-icon img {
+        width: 18px;
+        height: 18px;
+    }
+    
+    /* 手机端同步缩放比例偏大的 X 和 TikTok 图标 */
+    .social-icon[title="X"] img,
+    .social-icon[title="TikTok"] img {
+        width: 14px;
+        height: 14px;
+    }
+    
+    .footer-links, .footer-contact {
+        transform: none; /* 手机端取消平移 */
+    }
+}
+
+/* Search Box Styles (Milwaukee Tool style) */
+nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-search {
+    margin-left: 10px;
+}
+
+.nav-search form {
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid transparent;
+    transition: var(--transition);
+}
+
+.nav-search form.is-open,
+.nav-search form:focus-within {
+    border-bottom-color: var(--accent-color);
+}
+
+.search-input {
+    width: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--text-light);
+    transition: width 0.4s ease, padding 0.4s ease, background-color 0.4s ease;
+    outline: none;
+    font-size: 0.95rem;
+    font-family: inherit;
+    border-radius: 4px;
+}
+
+.search-input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Expand the input when input is focused or when active class is added via JS */
+.nav-search form.is-open .search-input,
+.nav-search form:focus-within .search-input,
+.search-input:focus,
+.search-input:not(:placeholder-shown) {
+    width: 180px;
+    padding: 5px 10px;
+    background-color: #3a3a3a; /* 稍微浅一点的灰色 */
+}
+
+.search-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-light);
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.search-btn:hover {
+    color: var(--primary-color);
+}
+
+/* Product Card Grid */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+.product-card {
+    background-color: var(--text-light);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transition: var(--transition);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+.product-img {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+}
+.product-info {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+.product-info h3 {
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+.product-info p {
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+    flex-grow: 1;
+}
+.product-info .btn {
+    align-self: flex-start;
+}

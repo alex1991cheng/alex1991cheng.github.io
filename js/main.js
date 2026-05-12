@@ -270,9 +270,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (globalHeader) globalHeader.style.display = 'none';
                 
                 resourceGrids.forEach(grid => {
-                    // Show the specific grid's header
+                    // Show the specific grid's header (let CSS determine the actual display mode)
                     const gridHeader = grid.querySelector('.resource-list-header');
-                    if (gridHeader) gridHeader.style.display = 'grid';
+                    if (gridHeader) gridHeader.style.display = '';
                     
                     // Only show cards in the active grid, hide others
                     if (grid.classList.contains('active')) {
@@ -324,7 +324,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     `;
                     firstGrid.parentNode.insertBefore(globalHeader, firstGrid);
                 }
-                globalHeader.style.display = 'grid';
+                globalHeader.style.display = ''; // Let CSS handle the display logic
                 
                 let allMatchedCards = []; // 跨网格收集所有匹配的卡片
 
@@ -410,5 +410,123 @@ document.addEventListener('DOMContentLoaded', () => {
         revealElements.forEach(el => {
             revealObserver.observe(el);
         });
+    }
+
+    // Products Page Category Filtering Logic
+    const categoryLinks = document.querySelectorAll('.category-list a');
+    const shopCards = document.querySelectorAll('.shop-card');
+    const shopTitle = document.querySelector('.shop-title');
+    const breadcrumbs = document.querySelector('.breadcrumbs');
+
+    // Function to trigger category selection
+    const selectCategory = (categoryToSelect) => {
+        if (!categoryLinks.length || !shopCards.length) return;
+        
+        let targetLink = null;
+        categoryLinks.forEach(link => {
+            if (link.getAttribute('data-category') === categoryToSelect) {
+                targetLink = link;
+            }
+        });
+        
+        if (targetLink) {
+            // Update active class
+            categoryLinks.forEach(l => l.classList.remove('active'));
+            targetLink.classList.add('active');
+
+            const categoryText = targetLink.textContent.trim();
+
+            // Helper to format text properly
+            const formatTitle = (str) => {
+                if (str === 'ALL ITEMS') return 'All Items';
+                if (str === 'NEW ARRIVALS') return 'New Arrivals';
+                if (str === 'CARS & SUVS') return 'Cars & SUVs';
+                if (str === 'RV & TRAILERS') return 'RV & Trailers';
+                return str.split(' ').map(word => {
+                    if (word === '&') return '&';
+                    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+                }).join(' ');
+            };
+
+            const formattedTitle = formatTitle(categoryText);
+
+            if (shopTitle) shopTitle.textContent = formattedTitle;
+            if (breadcrumbs) breadcrumbs.textContent = `Home > Products > ${formattedTitle}`;
+
+            // Filter logic
+            shopCards.forEach(card => {
+                const cardCategories = card.getAttribute('data-category') || '';
+                if (categoryToSelect === 'all') {
+                    card.style.display = ''; // Let CSS grid handle display
+                } else {
+                    // Check if the card's categories include the selected category
+                    const categoriesArray = cardCategories.split(' ').map(c => c.trim());
+                    if (categoriesArray.includes(categoryToSelect)) {
+                        card.style.display = '';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                }
+            });
+        }
+    };
+
+    // Check URL parameters for category on page load
+    const urlParams = new URLSearchParams(window.location.search);
+    const categoryFromUrl = urlParams.get('category');
+    if (categoryFromUrl) {
+        // Use a slight delay to ensure everything is loaded before filtering
+        setTimeout(() => {
+            selectCategory(categoryFromUrl);
+        }, 100);
+    }
+
+    if (categoryLinks.length > 0 && shopCards.length > 0) {
+        categoryLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const selectedCategory = link.getAttribute('data-category');
+                
+                // Update URL without reloading the page
+                const newUrl = new URL(window.location);
+                newUrl.searchParams.set('category', selectedCategory);
+                window.history.pushState({}, '', newUrl);
+                
+                selectCategory(selectedCategory);
+
+                // On mobile, close the sidebar after selecting a category
+                const shopSidebar = document.getElementById('shop-sidebar');
+                const sidebarOverlay = document.getElementById('sidebar-overlay');
+                if (shopSidebar && shopSidebar.classList.contains('is-open')) {
+                    shopSidebar.classList.remove('is-open');
+                    sidebarOverlay.classList.remove('is-active');
+                    document.body.style.overflow = ''; // Restore body scroll
+                }
+            });
+        });
+    }
+
+    // Mobile Sidebar Toggle Logic for Products Page
+    const mobileFilterBtn = document.getElementById('mobile-filter-btn');
+    const shopSidebar = document.getElementById('shop-sidebar');
+    const sidebarOverlay = document.getElementById('sidebar-overlay');
+    const sidebarCloseBtn = document.getElementById('sidebar-close-btn');
+
+    if (mobileFilterBtn && shopSidebar && sidebarOverlay && sidebarCloseBtn) {
+        const openSidebar = () => {
+            shopSidebar.classList.add('is-open');
+            sidebarOverlay.classList.add('is-active');
+            document.body.style.overflow = 'hidden'; // Prevent body scroll when sidebar is open
+        };
+
+        const closeSidebar = () => {
+            shopSidebar.classList.remove('is-open');
+            sidebarOverlay.classList.remove('is-active');
+            document.body.style.overflow = '';
+        };
+
+        mobileFilterBtn.addEventListener('click', openSidebar);
+        sidebarCloseBtn.addEventListener('click', closeSidebar);
+        sidebarOverlay.addEventListener('click', closeSidebar);
     }
 });
