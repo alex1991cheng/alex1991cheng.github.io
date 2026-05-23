@@ -412,11 +412,212 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Products Page Category Filtering Logic
-    const categoryLinks = document.querySelectorAll('.category-list a');
+    // Products Page Category Filtering, Sorting, and Pagination Logic
+    const categoryLinks = document.querySelectorAll('.category-list:not(.sort-list) a');
     const shopCards = document.querySelectorAll('.shop-card');
     const shopTitle = document.querySelector('.shop-title');
     const breadcrumbs = document.querySelector('.breadcrumbs');
+    
+    // Sort and Pagination Elements
+    const itemsPerPageSelect = document.getElementById('items-per-page-select');
+    const desktopSortSelect = document.getElementById('sort-by-select');
+    const mobileSortLinks = document.querySelectorAll('.sort-list a');
+    const paginationContainer = document.getElementById('pagination-container');
+    const shopGrid = document.querySelector('.shop-grid');
+    const comingSoonMsg = document.getElementById('coming-soon-message');
+
+    let currentCategory = 'all';
+    let currentPage = 1;
+    let itemsPerPage = 12;
+    let currentSort = 'featured';
+
+    // Set initial values from selects if they exist
+    if (itemsPerPageSelect) itemsPerPage = parseInt(itemsPerPageSelect.value, 10);
+    if (desktopSortSelect) currentSort = desktopSortSelect.value;
+
+    // Original order mapping for 'featured'
+    const cardsArray = Array.from(shopCards);
+    cardsArray.forEach((card, index) => {
+        card.setAttribute('data-original-index', index);
+    });
+
+    const renderProducts = () => {
+        if (!shopCards.length) return;
+
+        // 1. Filter
+        let filteredCards = cardsArray.filter(card => {
+            if (currentCategory === 'all') return true;
+            const cardCategories = card.getAttribute('data-category') || '';
+            const categoriesArray = cardCategories.split(' ').map(c => c.trim());
+            return categoriesArray.includes(currentCategory);
+        });
+
+        // 2. Sort
+        filteredCards.sort((a, b) => {
+            if (currentSort === 'featured') {
+                return parseInt(a.getAttribute('data-original-index')) - parseInt(b.getAttribute('data-original-index'));
+            } else if (currentSort === 'az' || currentSort === 'za') {
+                const titleA = a.querySelector('.shop-card-title').textContent.trim().toLowerCase();
+                const titleB = b.querySelector('.shop-card-title').textContent.trim().toLowerCase();
+                if (currentSort === 'az') return titleA.localeCompare(titleB);
+                return titleB.localeCompare(titleA);
+            } else if (currentSort === 'newest') {
+                const isNewA = a.querySelector('.shop-card-badge.new') ? 1 : 0;
+                const isNewB = b.querySelector('.shop-card-badge.new') ? 1 : 0;
+                // If both are new or neither, keep original order, else new first
+                if (isNewA !== isNewB) {
+                    return isNewB - isNewA;
+                }
+                return parseInt(a.getAttribute('data-original-index')) - parseInt(b.getAttribute('data-original-index'));
+            }
+            return 0;
+        });
+
+        // 3. Paginate
+        const totalItems = filteredCards.length;
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
+        
+        // Ensure current page is valid
+        if (currentPage > totalPages) currentPage = totalPages || 1;
+
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+
+        // Apply display changes and re-append to maintain visual order in DOM
+        // First hide all
+        cardsArray.forEach(card => card.style.display = 'none');
+        
+        // Handle Coming Soon
+        if (comingSoonMsg) {
+            if (totalItems === 0) {
+                comingSoonMsg.style.display = 'block';
+            } else {
+                comingSoonMsg.style.display = 'none';
+            }
+        }
+
+        // Then show paginated and ordered
+        filteredCards.forEach((card, index) => {
+            // Append to end of grid to enforce flex/grid order
+            if (shopGrid) {
+                shopGrid.appendChild(card);
+            }
+            
+            if (index >= startIndex && index < endIndex) {
+                card.style.display = '';
+            }
+        });
+        
+        // Always append coming soon message at the end of grid
+        if (comingSoonMsg && shopGrid) {
+            shopGrid.appendChild(comingSoonMsg);
+        }
+
+        // 4. Render Pagination UI
+        renderPagination(totalPages);
+    };
+
+    const renderPagination = (totalPages) => {
+        if (!paginationContainer) return;
+        paginationContainer.innerHTML = '';
+
+        if (totalPages <= 1) {
+            paginationContainer.style.display = 'none';
+            return;
+        }
+
+        paginationContainer.style.display = 'flex';
+
+        // Prev Button
+        const prevBtn = document.createElement('button');
+        prevBtn.innerHTML = '&#10094;'; // Left pointing angle bracket <
+        prevBtn.className = 'page-btn page-btn-nav';
+        prevBtn.disabled = currentPage === 1;
+        prevBtn.addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderProducts();
+                window.scrollTo({ top: document.getElementById('products-header').offsetTop, behavior: 'smooth' });
+            }
+        });
+        paginationContainer.appendChild(prevBtn);
+
+        // Page Numbers
+        for (let i = 1; i <= totalPages; i++) {
+            const pageBtn = document.createElement('button');
+            pageBtn.textContent = i;
+            pageBtn.className = i === currentPage ? 'page-btn active' : 'page-btn';
+            pageBtn.addEventListener('click', () => {
+                currentPage = i;
+                renderProducts();
+                window.scrollTo({ top: document.getElementById('products-header').offsetTop, behavior: 'smooth' });
+            });
+            paginationContainer.appendChild(pageBtn);
+        }
+
+        // Next Button
+        const nextBtn = document.createElement('button');
+        nextBtn.innerHTML = '&#10095;'; // Right pointing angle bracket >
+        nextBtn.className = 'page-btn page-btn-nav';
+        nextBtn.disabled = currentPage === totalPages;
+        nextBtn.addEventListener('click', () => {
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderProducts();
+                window.scrollTo({ top: document.getElementById('products-header').offsetTop, behavior: 'smooth' });
+            }
+        });
+        paginationContainer.appendChild(nextBtn);
+    };
+
+    // Event Listeners for Sorting and Pagination
+    if (itemsPerPageSelect) {
+        itemsPerPageSelect.addEventListener('change', (e) => {
+            itemsPerPage = parseInt(e.target.value, 10);
+            currentPage = 1; // Reset to first page
+            renderProducts();
+        });
+    }
+
+    if (desktopSortSelect) {
+        desktopSortSelect.addEventListener('change', (e) => {
+            currentSort = e.target.value;
+            // Sync mobile sort
+            mobileSortLinks.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('data-sort') === currentSort);
+            });
+            currentPage = 1;
+            renderProducts();
+        });
+    }
+
+    if (mobileSortLinks.length > 0) {
+        mobileSortLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                currentSort = link.getAttribute('data-sort');
+                
+                // Update active class
+                mobileSortLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+                
+                // Sync desktop sort
+                if (desktopSortSelect) desktopSortSelect.value = currentSort;
+                
+                currentPage = 1;
+                renderProducts();
+                
+                // Close sidebar on mobile
+                const shopSidebar = document.getElementById('shop-sidebar');
+                const sidebarOverlay = document.getElementById('sidebar-overlay');
+                if (shopSidebar && shopSidebar.classList.contains('is-open')) {
+                    shopSidebar.classList.remove('is-open');
+                    sidebarOverlay.classList.remove('is-active');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+    }
 
     // Function to trigger category selection
     const selectCategory = (categoryToSelect) => {
@@ -453,21 +654,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (shopTitle) shopTitle.textContent = formattedTitle;
             if (breadcrumbs) breadcrumbs.textContent = `Home > Products > ${formattedTitle}`;
 
-            // Filter logic
-            shopCards.forEach(card => {
-                const cardCategories = card.getAttribute('data-category') || '';
-                if (categoryToSelect === 'all') {
-                    card.style.display = ''; // Let CSS grid handle display
-                } else {
-                    // Check if the card's categories include the selected category
-                    const categoriesArray = cardCategories.split(' ').map(c => c.trim());
-                    if (categoriesArray.includes(categoryToSelect)) {
-                        card.style.display = '';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                }
-            });
+            // Set current category and re-render
+            currentCategory = categoryToSelect;
+            currentPage = 1; // Reset to first page when changing category
+            renderProducts();
         }
     };
 
@@ -479,6 +669,9 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             selectCategory(categoryFromUrl);
         }, 100);
+    } else {
+        // Render initial state
+        renderProducts();
     }
 
     if (categoryLinks.length > 0 && shopCards.length > 0) {

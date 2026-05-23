@@ -94,10 +94,10 @@
                     <div class="sidebar-widget mobile-sort-widget">
                         <h3 class="widget-title">SORT BY</h3>
                         <ul class="category-list sort-list">
-                            <li><a href="#" class="active">FEATURED</a></li>
-                            <li><a href="#">ALPHABETICALLY, A-Z</a></li>
-                            <li><a href="#">ALPHABETICALLY, Z-A</a></li>
-                            <li><a href="#">DATE, NEW TO OLD</a></li>
+                            <li><a href="#" class="active" data-sort="featured">FEATURED</a></li>
+                            <li><a href="#" data-sort="az">ALPHABETICALLY, A-Z</a></li>
+                            <li><a href="#" data-sort="za">ALPHABETICALLY, Z-A</a></li>
+                            <li><a href="#" data-sort="newest">DATE, NEW TO OLD</a></li>
                         </ul>
                     </div>
                 </aside>
@@ -116,99 +116,186 @@
                             </button>
                             <div class="toolbar-control items-per-page-control">
                                 <label>ITEMS PER PAGE</label>
-                                <select>
-                                    <option>12</option>
-                                    <option>24</option>
-                                    <option>36</option>
+                                <select id="items-per-page-select">
+                                    <option value="12">12</option>
+                                    <option value="24">24</option>
+                                    <option value="36">36</option>
                                 </select>
                             </div>
                             <div class="toolbar-control desktop-sort-control">
                                 <label>SORT BY</label>
-                                <select>
-                                    <option>Featured</option>
-                                    <option>Alphabetically, A-Z</option>
-                                    <option>Alphabetically, Z-A</option>
-                                    <option>Date, new to old</option>
+                                <select id="sort-by-select">
+                                    <option value="featured">Featured</option>
+                                    <option value="az">Alphabetically, A-Z</option>
+                                    <option value="za">Alphabetically, Z-A</option>
+                                    <option value="newest">Date, new to old</option>
                                 </select>
                             </div>
                         </div>
                     </div>
 
                     <div class="shop-grid">
-                        <!-- Product Card 1 -->
+                        <!-- Product Card: Under-Screen Organizer -->
+                        <div class="shop-card" data-category="cars-suvs tools-accessories new">
+                            <div class="shop-card-badge new">New</div>
+                            <div class="shop-card-img" style="background-image: url('images/products/6.webp'); background-size: contain; background-color: #fff;"></div>
+                            <div class="shop-card-info">
+                                <h3 class="shop-card-title">Under-Screen Organizer</h3>
+                                <a href="product-under-screen-organizer.html" class="btn shop-card-btn">VIEW DETAILS</a>
+                            </div>
+                        </div>
+
+                        <!-- Product Card: Oil Catch Can Kit -->
+                        <div class="shop-card" data-category="trucks tools-accessories new">
+                            <div class="shop-card-badge new">New</div>
+                            <div class="shop-card-img" style="background-image: url('images/products/9.webp'); background-size: contain; background-color: #fff;"></div>
+                            <div class="shop-card-info">
+                                <h3 class="shop-card-title">Oil Catch Can Kit</h3>
+                                <a href="product-oil-catch-can-kit.html" class="btn shop-card-btn">VIEW DETAILS</a>
+                            </div>
+                        </div>
+
+                        <!-- Product Card: Front Right Windshield Wiper Arm -->
                         <div class="shop-card" data-category="cars-suvs new">
                             <div class="shop-card-badge new">New</div>
-                            <div class="shop-card-img" style="background-image: url('images/banner_car.jpg');"></div>
+                            <div class="shop-card-img" style="background-image: url('images/products/10.webp'); background-size: contain; background-color: #fff;"></div>
                             <div class="shop-card-info">
-                                <h3 class="shop-card-title">Performance Brake Pads</h3>
-                                <a href="product-detail.html" class="btn shop-card-btn">VIEW DETAILS</a>
+                                <h3 class="shop-card-title">Front Right Windshield Wiper Arm</h3>
+                                <a href="product-front-right-windshield-wiper-arm.html" class="btn shop-card-btn">VIEW DETAILS</a>
+                            </div>
+                        </div>
+
+                        <!-- Product Card: Front Windshield Wiper Arm Pair Kit -->
+                        <div class="shop-card" data-category="trucks">
+                            <div class="shop-card-img" style="background-image: url('images/products/11.webp'); background-size: contain; background-color: #fff;"></div>
+                            <div class="shop-card-info">
+                                <h3 class="shop-card-title">Front Windshield Wiper Arm Pair Kit</h3>
+                                <a href="product-front-windshield-wiper-arm-pair-kit.html" class="btn shop-card-btn">VIEW DETAILS</a>
+                            </div>
+                        </div>
+
+                        <!-- Product Card: Front Wiper Arm Pair Kit -->
+                        <div class="shop-card" data-category="trucks">
+                            <div class="shop-card-img" style="background-image: url('images/products/12.webp'); background-size: contain; background-color: #fff;"></div>
+                            <div class="shop-card-info">
+                                <h3 class="shop-card-title">Front Wiper Arm Pair Kit</h3>
+                                <a href="product-front-wiper-arm-pair-kit.html" class="btn shop-card-btn">VIEW DETAILS</a>
+                            </div>
+                        </div>
+
+                        <!-- Product Card: Front Wiper Arm Pair -->
+                        <div class="shop-card" data-category="trucks">
+                            <div class="shop-card-img" style="background-image: url('images/products/13.webp'); background-size: contain; background-color: #fff;"></div>
+                            <div class="shop-card-info">
+                                <h3 class="shop-card-title">Front Wiper Arm Pair</h3>
+                                <a href="product-front-wiper-arm-pair.html" class="btn shop-card-btn">VIEW DETAILS</a>
+                            </div>
+                        </div>
+
+                        <!-- Product Card: Ignition & Front Door Lock Cylinder Set -->
+                        <div class="shop-card" data-category="trucks">
+                            <div class="shop-card-img" style="background-image: url('images/products/14.webp'); background-size: contain; background-color: #fff;"></div>
+                            <div class="shop-card-info">
+                                <h3 class="shop-card-title">Ignition & Front Door Lock Cylinder Set</h3>
+                                <a href="product-ignition-front-door-lock-cylinder-set.html" class="btn shop-card-btn">VIEW DETAILS</a>
+                            </div>
+                        </div>
+
+                        <!-- Product Card: Tubing Straightener -->
+                        <div class="shop-card" data-category="tools-accessories new">
+                            <div class="shop-card-badge new">New</div>
+                            <div class="shop-card-img" style="background-image: url('images/products/15.webp'); background-size: contain; background-color: #fff;"></div>
+                            <div class="shop-card-info">
+                                <h3 class="shop-card-title">Tubing Straightener</h3>
+                                <a href="product-tubing-straightener.html" class="btn shop-card-btn">VIEW DETAILS</a>
+                            </div>
+                        </div>
+
+                        <!-- Product Card: Front Left Armrest Repair Kit -->
+                        <div class="shop-card" data-category="trucks">
+                            <div class="shop-card-img" style="background-image: url('images/products/3.webp'); background-size: contain; background-color: #fff;"></div>
+                            <div class="shop-card-info">
+                                <h3 class="shop-card-title">Front Left Armrest Repair Kit</h3>
+                                <a href="product-front-left-armrest-repair-kit.html" class="btn shop-card-btn">VIEW DETAILS</a>
+                            </div>
+                        </div>
+
+                        <!-- Product Card: Front Right Armrest Repair Kit -->
+                        <div class="shop-card" data-category="trucks">
+                            <div class="shop-card-img" style="background-image: url('images/products/4.webp'); background-size: contain; background-color: #fff;"></div>
+                            <div class="shop-card-info">
+                                <h3 class="shop-card-title">Front Right Armrest Repair Kit</h3>
+                                <a href="product-front-right-armrest-repair-kit.html" class="btn shop-card-btn">VIEW DETAILS</a>
+                            </div>
+                        </div>
+
+                        <!-- Product Card: Air Oil Separator Assembly -->
+                        <div class="shop-card" data-category="trucks new">
+                            <div class="shop-card-badge new">New</div>
+                            <div class="shop-card-img" style="background-image: url('images/products/5.webp'); background-size: contain; background-color: #fff;"></div>
+                            <div class="shop-card-info">
+                                <h3 class="shop-card-title">Air Oil Separator Assembly</h3>
+                                <a href="product-air-oil-separator-assembly.html" class="btn shop-card-btn">VIEW DETAILS</a>
+                            </div>
+                        </div>
+
+                        <!-- Product Card: ATF Thermal Bypass Valve -->
+                        <div class="shop-card" data-category="trucks new">
+                            <div class="shop-card-badge new">New</div>
+                            <div class="shop-card-img" style="background-image: url('images/products/7.webp'); background-size: contain; background-color: #fff;"></div>
+                            <div class="shop-card-info">
+                                <h3 class="shop-card-title">ATF Thermal Bypass Valve</h3>
+                                <a href="product-atf-thermal-bypass-valve.html" class="btn shop-card-btn">VIEW DETAILS</a>
+                            </div>
+                        </div>
+
+                        <!-- Product Card: Front Upper & Lower Ball Joint Set -->
+                        <div class="shop-card" data-category="motorcycles">
+                            <div class="shop-card-img" style="background-image: url('images/products/8.webp'); background-size: contain; background-color: #fff;"></div>
+                            <div class="shop-card-info">
+                                <h3 class="shop-card-title">Front Upper & Lower Ball Joint Set</h3>
+                                <a href="product-front-upper-lower-ball-joint-set.html" class="btn shop-card-btn">VIEW DETAILS</a>
+                            </div>
+                        </div>
+
+                        <!-- Product Card: Neutral Shift Assist Kit, Red -->
+                        <div class="shop-card" data-category="motorcycles new">
+                            <div class="shop-card-badge new">New</div>
+                            <div class="shop-card-img" style="background-image: url('images/products/1.webp'); background-size: contain; background-color: #fff;"></div>
+                            <div class="shop-card-info">
+                                <h3 class="shop-card-title">Neutral Shift Assist Kit, Red</h3>
+                                <a href="product-neutral-shift-assist-red.html" class="btn shop-card-btn">VIEW DETAILS</a>
+                            </div>
+                        </div>
+
+                        <!-- Product Card: Neutral Shift Assist Kit, Black -->
+                        <div class="shop-card" data-category="motorcycles">
+                            <div class="shop-card-img" style="background-image: url('images/products/2.webp'); background-size: contain; background-color: #fff;"></div>
+                            <div class="shop-card-info">
+                                <h3 class="shop-card-title">Neutral Shift Assist Kit, Black</h3>
+                                <a href="product-neutral-shift-assist-black.html" class="btn shop-card-btn">VIEW DETAILS</a>
+                            </div>
+                        </div>
+
+                        <!-- Product Card: Scrub Mat -->
+                        <div class="shop-card" data-category="rv-trailers tools-accessories new">
+                            <div class="shop-card-badge new">New</div>
+                            <div class="shop-card-img" style="background-image: url('images/products/VT-Z-GJ-0227-N1 SCRUB MAT_main.webp'); background-size: contain; background-color: #fff;"></div>
+                            <div class="shop-card-info">
+                                <h3 class="shop-card-title">Scrub Mat</h3>
+                                <a href="product-scrub-mat.html" class="btn shop-card-btn">VIEW DETAILS</a>
                             </div>
                         </div>
                         
-                        <!-- Product Card 2 -->
-                        <div class="shop-card" data-category="trucks new">
-                            <div class="shop-card-badge new">New</div>
-                            <div class="shop-card-img" style="background-image: url('images/banner_truck.jpg');"></div>
-                            <div class="shop-card-info">
-                                <h3 class="shop-card-title">Heavy-Duty Towing Accessories</h3>
-                                <a href="product-detail.html" class="btn shop-card-btn">VIEW DETAILS</a>
-                            </div>
+                        <!-- Coming Soon Message -->
+                        <div id="coming-soon-message" style="display: none; grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--text-muted);">
+                            <h3 style="font-size: 1.8rem; color: var(--secondary-color); margin-bottom: 15px;">Coming Soon</h3>
+                            <p style="font-size: 1.1rem;">We are working hard to bring you new premium products in this category.</p>
                         </div>
+                    </div>
 
-                        <!-- Product Card 3 -->
-                        <div class="shop-card" data-category="cars-suvs">
-                            <div class="shop-card-img" style="background-image: url('images/banner_car.jpg');"></div>
-                            <div class="shop-card-info">
-                                <h3 class="shop-card-title">Suspension Kits</h3>
-                                <a href="product-detail.html" class="btn shop-card-btn">VIEW DETAILS</a>
-                            </div>
-                        </div>
-
-                        <!-- Product Card 4 -->
-                        <div class="shop-card" data-category="cars-suvs">
-                            <div class="shop-card-img" style="background-image: url('images/banner_car.jpg');"></div>
-                            <div class="shop-card-info">
-                                <h3 class="shop-card-title">Engine Filters</h3>
-                                <a href="product-detail.html" class="btn shop-card-btn">VIEW DETAILS</a>
-                            </div>
-                        </div>
-
-                        <!-- Product Card 5 -->
-                        <div class="shop-card" data-category="trucks new">
-                            <div class="shop-card-badge new">New</div>
-                            <div class="shop-card-img" style="background-image: url('images/banner_truck.jpg');"></div>
-                            <div class="shop-card-info">
-                                <h3 class="shop-card-title">Cargo Management</h3>
-                                <a href="product-detail.html" class="btn shop-card-btn">VIEW DETAILS</a>
-                            </div>
-                        </div>
-
-                        <!-- Product Card 6 -->
-                        <div class="shop-card" data-category="motorcycles">
-                            <div class="shop-card-img" style="background-image: url('images/banner_moto.jpg');"></div>
-                            <div class="shop-card-info">
-                                <h3 class="shop-card-title">Performance Exhausts</h3>
-                                <a href="product-detail.html" class="btn shop-card-btn">VIEW DETAILS</a>
-                            </div>
-                        </div>
-
-                        <!-- Product Card 7 -->
-                        <div class="shop-card" data-category="rv-trailers">
-                            <div class="shop-card-img" style="background-image: url('images/banner_rv.jpg');"></div>
-                            <div class="shop-card-info">
-                                <h3 class="shop-card-title">RV Leveling Systems</h3>
-                                <a href="product-detail.html" class="btn shop-card-btn">VIEW DETAILS</a>
-                            </div>
-                        </div>
-
-                        <!-- Product Card 8 -->
-                        <div class="shop-card" data-category="tools-accessories">
-                            <div class="shop-card-img" style="background-image: url('images/banner_car.jpg');"></div>
-                            <div class="shop-card-info">
-                                <h3 class="shop-card-title">Diagnostic Tools</h3>
-                                <a href="product-detail.html" class="btn shop-card-btn">VIEW DETAILS</a>
-                            </div>
-                        </div>
+                    <!-- Pagination -->
+                    <div id="pagination-container" class="pagination-container">
                     </div>
                 </div>
             </div>

@@ -916,6 +916,62 @@ header.shrink .logo img {
     font-weight: 700;
 }
 
+/* Pagination Styles */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin-top: 60px;
+    padding-top: 30px;
+}
+
+.page-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 36px;
+    border: 1px solid var(--secondary-color); /* 默认黑框 */
+    border-radius: 0; /* 直角设计 */
+    background-color: transparent;
+    color: var(--secondary-color);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.page-btn:hover:not(:disabled):not(.page-btn-nav) {
+    background-color: rgba(0, 0, 0, 0.05); /* 悬停时仅微弱背景变化 */
+}
+
+.page-btn.active {
+    background-color: var(--primary-color); /* 品牌橙色 */
+    border-color: var(--primary-color);
+    color: #fff; /* 白色数字 */
+}
+
+/* 左右箭头按钮特殊处理：无边框，仅图标 */
+.page-btn-nav {
+    border: none;
+    background: none;
+    font-size: 1.3rem; /* 箭头稍微大一点 */
+    padding: 0 10px;
+}
+
+.page-btn-nav:hover:not(:disabled) {
+    color: var(--primary-color);
+    background: none;
+    transform: scale(1.1); /* 悬停稍微放大 */
+}
+
+.page-btn-nav:disabled {
+    opacity: 0.2;
+    cursor: not-allowed;
+    background: none;
+}
+
 /* Page Header (Subpages) */
 .page-header {
     background-color: var(--bg-dark);

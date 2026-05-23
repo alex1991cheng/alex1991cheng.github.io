@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VALTECS | Front Right Armrest Repair Kit</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+    <link rel="icon" href="icons/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .product-detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+        
+        .product-gallery {
+            position: relative;
+        }
+        
+        .main-image {
+            width: 100%;
+            height: 450px;
+            object-fit: contain;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 15px;
+            border: 1px solid #eee;
+        }
+        
+        .thumbnail-list {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .thumbnail {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: var(--transition);
+        }
+        
+        .thumbnail:hover, .thumbnail.active {
+            border-color: var(--primary-color);
+        }
+        
+        .product-meta h1 {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+        
+        .product-price {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .product-description {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+        
+        .product-specs {
+            margin-bottom: 30px;
+            background-color: var(--bg-light);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .product-specs h3 {
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+        }
+        
+        .spec-item {
+            display: flex;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 5px;
+        }
+        
+        .spec-label {
+            font-weight: 600;
+            width: 120px;
+            color: var(--secondary-color);
+            flex-shrink: 0;
+        }
+        
+        .spec-value {
+            color: var(--text-muted);
+            flex: 1;
+        }
+        
+        .buy-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        /* Features Tabs */
+        .features-tabs {
+            margin-top: 60px;
+        }
+        
+        .tab-headers {
+            display: flex;
+            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 30px;
+        }
+        
+        .tab-header {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--text-muted);
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        .tab-header:hover {
+            color: var(--secondary-color);
+        }
+        
+        .tab-header.active {
+            color: var(--primary-color);
+        }
+        
+        .tab-header.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: var(--primary-color);
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 20px 0;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .feature-list {
+            list-style: none;
+        }
+        
+        .feature-list li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            color: var(--text-muted);
+        }
+        
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .product-detail-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/valtecs_logo.svg" alt="Valtecs Logo">
+                </a>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html" class="active">Products</a></li>
+                    <li><a href="support.html">Support</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="nav-search">
+                    <form action="search.html" method="GET">
+                        <input type="text" name="q" placeholder="Search..." class="search-input">
+                        <button type="submit" class="search-btn" aria-label="Search">
+                            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        </button>
+                    </form>
+                </div>
+            </nav>
+            <div class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="bg-light" style="padding: 20px 0; border-bottom: 1px solid #ddd;">
+            <div class="container">
+                <p style="color: var(--text-muted); font-size: 0.9rem;">
+                    <a href="index.html">Home</a> &gt; <a href="products.html">Products</a> &gt; <a href="products.html?category=trucks">Trucks</a> &gt; <span style="color: var(--secondary-color); font-weight: 600;">Front Right Armrest Repair Kit</span>
+                </p>
+            </div>
+        </div>
+
+        <section class="section" style="padding-top: 50px;">
+            <div class="container">
+                <div class="product-detail-grid">
+                    <div class="product-gallery">
+                        <img src="images/products/4.webp" alt="Front Right Armrest Repair Kit" class="main-image" id="mainImage">
+                        <div class="thumbnail-list">
+                            <img src="images/products/4.webp" alt="Thumbnail 1" class="thumbnail active" onclick="document.getElementById('mainImage').src=this.src; document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active')); this.classList.add('active');">
+                        </div>
+                    </div>
+                    
+                    <div class="product-meta">
+                        <h1>Front Right Armrest Repair Kit</h1>
+                        
+                        <div class="product-description">
+                            <p>22818470 Front Right Passenger Door Armrest Repair Kit, Black, Compatible with 2010-2014 Chevy Silverado 1500 2500HD 3500HD & GMC Sierra, Equipped with Under-Armrest Release Handle</p>
+                        </div>
+                        
+                        <div class="product-specs">
+                            <h3>Specifications</h3>
+                            <div class="spec-item">
+                                <span class="spec-label">SKU</span>
+                                <span class="spec-value">VT-W-HC-0619-BK1</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Color</span>
+                                <span class="spec-value">Black</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Replacement Part Number</span>
+                                <span class="spec-value">22818470, 20874805, 20920835, 20924571, 23402973</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label" style="padding-top: 5px;">Compatible with</span>
+                                <span class="spec-value">
+                                    <strong>Chevrolet</strong><br>
+                                    Silverado 1500 2010-2013<br>
+                                    Silverado 2500 HD 2010-2014<br>
+                                    Silverado 3500 HD 2010-2014<br><br>
+                                    <strong>GMC</strong><br>
+                                    Sierra 1500 2010-2013<br>
+                                    Sierra 2500 HD 2010-2014<br>
+                                    Sierra 3500 HD 2010-2014
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="buy-section">
+                            <a href="https://www.amazon.com/dp/B0H23VX7CM" target="_blank" class="btn btn-primary" style="width: 100%; display: block; text-align: center; font-size: 1.3rem;">
+                                Buy on Amazon
+                            </a>
+                            <p style="text-align: center; margin-top: 15px; color: var(--text-muted); font-size: 0.9rem;">Fast, free shipping for Prime members.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="features-tabs">
+                    <div class="tab-headers">
+                        <div class="tab-header active" onclick="switchTab('features')">Features & Benefits</div>
+                        <div class="tab-header" onclick="switchTab('installation')">Installation</div>
+                    </div>
+                    
+                    <div class="tab-content active" id="tab-features">
+                        <ul class="feature-list">
+                            <li><strong>Reinforced Upgraded Structure:</strong> Upgraded from original fragile design, built with reinforced ABS framework and embedded metal bracket. Superior load capacity and crack resistance compared to ordinary plastic counterparts.</li>
+                            <li><strong>Direct OEM Replacement:</strong> Perfect match original mounting position, no extra cutting or drilling needed. Install effortlessly with basic tools and included instructions. Matte black textured surface fits factory interior style perfectly.</li>
+                            <li><strong>Noise-Free Stable Use:</strong> Solid tight fit avoids shaking and abnormal rattling noises. Exact fit for front right passenger side door panels with release handle beneath armrest.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tab-content" id="tab-installation">
+                        <a href="support.html" class="btn btn-outline">Find Installation Guide</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">
+                        <img src="images/valtecs_logo_white.svg" alt="VALTECS Logo">
+                    </a>
+                    <p>VALTECS - Pal for Wheels.<br>Premium auto parts and accessories engineered for quality, fit, and durability on North American journeys.</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="support.html">Support</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p>Email: support@val-tecs.com</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon" title="Facebook"><img src="icons/facebook.svg" alt="Facebook"></a>
+                        <a href="#" class="social-icon" title="Instagram"><img src="icons/instagram.svg" alt="Instagram"></a>
+                        <a href="#" class="social-icon" title="X"><img src="icons/x.svg" alt="X"></a>
+                        <a href="#" class="social-icon" title="YouTube"><img src="icons/Youtube.svg" alt="YouTube"></a>
+                        <a href="#" class="social-icon" title="TikTok"><img src="icons/tiktok.svg" alt="TikTok"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Valtecs. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-header').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById('tab-' + tabId).classList.add('active');
+        }
+    </script>
+</body>
+</html>
