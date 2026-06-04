@@ -382,7 +382,7 @@ header.shrink .logo img {
 }
 
 .showcase-text {
-    flex: 1.1; /* 文字占比 1.1 */
+    flex: 0.9; /* 减小文字占比 */
     padding-bottom: 20px; /* 下对齐时稍微留出一点底部边距，不要完全贴底 */
 }
 
@@ -423,17 +423,25 @@ header.shrink .logo img {
 }
 
 .showcase-image {
-    flex: 1.0; /* 图片占比 1.0 */
+    flex: 1.2; /* 增大图片占比，让画幅变大 */
     position: relative;
 }
 
 .showcase-image-inner {
+    display: block; /* 使 a 标签能够撑满容器 */
     width: 100%;
     aspect-ratio: 16/11; /* 类似参考图的长方形比例 */
     background-color: #e5e5e5;
     border-radius: 6px; /* 将圆角从 12px 改小为 6px */
     overflow: hidden;
     box-shadow: 0 15px 35px rgba(0,0,0,0.05); /* 稍微减弱一点阴影 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 如果是链接，增加悬停效果 */
+a.showcase-image-inner:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
 }
 
 .showcase-image-inner img {
@@ -442,6 +450,23 @@ header.shrink .logo img {
     object-fit: cover;
     display: block;
     /* 去掉了 scale 放大动效过渡 */
+}
+
+/* Auto-slider specific styles */
+.showcase-mini-slider {
+    position: relative;
+}
+
+.showcase-mini-slider img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.showcase-mini-slider img.active {
+    opacity: 1;
 }
 
 /* 去掉 hover 放大的特效 */
@@ -1084,8 +1109,13 @@ footer h3 {
     color: var(--primary-color);
 }
 
+.footer-contact {
+    position: relative;
+    z-index: 10;
+}
+
 .footer-contact p {
-    margin-bottom: 0; 
+    margin-bottom: 0;
     line-height: 1.4; 
     padding-bottom: 5px;
     white-space: nowrap; /* 强制内容不换行 */
@@ -1095,6 +1125,8 @@ footer h3 {
     display: flex;
     gap: 15px;
     margin-top: 20px;
+    position: relative;
+    z-index: 10;
 }
 
 .social-icon {
@@ -1107,6 +1139,8 @@ footer h3 {
     border-radius: 50%;
     color: var(--text-light);
     transition: var(--transition);
+    z-index: 10;
+    position: relative;
 }
 
 .social-icon img {
@@ -2271,4 +2305,108 @@ nav {
 }
 .product-info .btn {
     align-self: flex-start;
+}
+
+/* --- Coming Soon Page --- */
+.coming-soon-main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh;
+    background-color: var(--bg-light);
+    padding: 60px 20px;
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.9), rgba(245, 245, 245, 1)), url('../images/banner_car.webp');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.coming-soon-content {
+    background-color: var(--text-light);
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 80px 60px;
+    text-align: center;
+    border-radius: 0;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+    border-top: 5px solid var(--primary-color);
+}
+
+.coming-soon-icon {
+    margin-bottom: 30px;
+}
+
+.coming-soon-icon svg {
+    width: 64px;
+    height: 64px;
+    animation: rotate-slow 15s linear infinite;
+}
+
+@keyframes rotate-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.coming-soon-title {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: var(--secondary-color);
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.coming-soon-desc {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 30px;
+}
+
+.coming-soon-divider {
+    width: 60px;
+    height: 3px;
+    background-color: var(--primary-color);
+    margin: 0 auto 30px;
+}
+
+.coming-soon-sub {
+    font-size: 1rem;
+    color: var(--text-dark);
+    margin-bottom: 40px;
+    font-weight: 500;
+}
+
+.coming-soon-actions {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.coming-soon-actions .btn {
+    min-width: 200px;
+    border-radius: 0;
+    padding: 15px 30px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+@media (max-width: 768px) {
+    .coming-soon-content {
+        padding: 50px 30px;
+    }
+    
+    .coming-soon-title {
+        font-size: 2rem;
+    }
+    
+    .coming-soon-actions {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .coming-soon-actions .btn {
+        width: 100%;
+    }
 }

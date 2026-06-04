@@ -454,7 +454,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 2. Sort
         filteredCards.sort((a, b) => {
-            if (currentSort === 'featured') {
+            if (currentSort === 'featured' || currentSort === 'date') {
+                const aIsNew = (a.getAttribute('data-category') || '').includes('new');
+                const bIsNew = (b.getAttribute('data-category') || '').includes('new');
+                if (aIsNew && !bIsNew) return -1;
+                if (!aIsNew && bIsNew) return 1;
                 return parseInt(a.getAttribute('data-original-index')) - parseInt(b.getAttribute('data-original-index'));
             } else if (currentSort === 'az' || currentSort === 'za') {
                 const titleA = a.querySelector('.shop-card-title').textContent.trim().toLowerCase();
@@ -721,5 +725,19 @@ document.addEventListener('DOMContentLoaded', () => {
         mobileFilterBtn.addEventListener('click', openSidebar);
         sidebarCloseBtn.addEventListener('click', closeSidebar);
         sidebarOverlay.addEventListener('click', closeSidebar);
+    }
+
+    // Mini Slider for Featured Products (Dirt Stops Here)
+    const dirtStopsSlider = document.getElementById('dirt-stops-slider');
+    if (dirtStopsSlider) {
+        const slides = dirtStopsSlider.querySelectorAll('img');
+        let currentSlide = 0;
+        if (slides.length > 1) {
+            setInterval(() => {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }, 3000); // Change image every 3 seconds
+        }
     }
 });
