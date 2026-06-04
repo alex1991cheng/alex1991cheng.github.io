@@ -111,65 +111,51 @@
         if (query.trim() !== '') {
             queryElement.textContent = '"' + query + '"';
             
-            // 真实产品数据
-            const productsData = [
-                { title: "Truck Winch Remote Control", category: "trucks", link: "product-truck-winch-remote-control.html", img: "images/products/17.webp" },
-                { title: "Turbo Intercooler Outlet Hose", category: "trucks", link: "product-turbo-intercooler-outlet-hose.html", img: "images/products/28.webp" },
-                { title: "Truck Step Boot Brush", category: "rv-trailers trucks tools-accessories new", link: "product-truck-step-boot-brush.html", img: "images/products/34.webp" },
-                { title: "Lever Action Barrel Pump", category: "tools", link: "product-lever-action-barrel-pump.html", img: "images/products/29.webp" },
-                { title: "OBD2 Anti-Theft Lock", category: "tools", link: "product-obd2-anti-theft-lock.html", img: "images/products/32.webp" },
-                { title: "Rotary Transfer Pump", category: "tools", link: "product-rotary-transfer-pump.html", img: "images/products/31.webp" },
-                { title: "Clutch Alignment Tool", category: "motorcycles", link: "product-clutch-alignment-tool.html", img: "images/products/27.webp" },
-                { title: "Front Door Lock Actuator Pair", category: "cars-suvs", link: "product-front-door-lock-actuator-pair.html", img: "images/products/24.webp" },
-                { title: "OBD Auto Start Stop Eliminator", category: "tools-accessories new", link: "product-obd-auto-start-stop-eliminator.html", img: "images/products/23.webp" },
-                { title: "Auto Start Stop Eliminator", category: "tools-accessories", link: "product-auto-start-stop-eliminator.html", img: "images/products/22.webp" },
-                { title: "Heater Hose Tee Kit (90° & Angled)", category: "trucks", link: "product-heater-hose-tee-kit.html", img: "images/products/19.webp" },
-                { title: "Dual Valve Core Removal Tool with Sight Glass", category: "tools-accessories new", link: "product-dual-valve-core-removal-tool-with-sight-glass.html", img: "images/products/18.webp" },
-                { title: "Backup Rear View Camera", category: "cars-suvs new", link: "product-backup-rear-view-camera.html", img: "images/products/16.webp" },
-                { title: "Under-Screen Organizer", category: "cars-suvs tools-accessories new", link: "product-under-screen-organizer.html", img: "images/products/6.webp" },
-                { title: "Oil Catch Can Kit", category: "trucks tools-accessories", link: "product-oil-catch-can-kit.html", img: "images/products/9.webp" },
-                { title: "Front Right Windshield Wiper Arm", category: "cars-suvs new", link: "product-front-right-windshield-wiper-arm.html", img: "images/products/10.webp" },
-                { title: "Front Windshield Wiper Arm Pair Kit", category: "trucks", link: "product-front-windshield-wiper-arm-pair-kit.html", img: "images/products/11.webp" },
-                { title: "Front Wiper Arm Pair Kit", category: "trucks", link: "product-front-wiper-arm-pair-kit.html", img: "images/products/12.webp" },
-                { title: "Front Wiper Arm Pair", category: "trucks", link: "product-front-wiper-arm-pair.html", img: "images/products/13.webp" },
-                { title: "Ignition & Front Door Lock Cylinder Set", category: "trucks", link: "product-ignition-front-door-lock-cylinder-set.html", img: "images/products/14.webp" },
-                { title: "Tubing Straightener", category: "tools-accessories new", link: "product-tubing-straightener.html", img: "images/products/15.webp" },
-                { title: "Front Left Armrest Repair Kit", category: "trucks", link: "product-front-left-armrest-repair-kit.html", img: "images/products/3.webp" },
-                { title: "Front Right Armrest Repair Kit", category: "trucks", link: "product-front-right-armrest-repair-kit.html", img: "images/products/4.webp" },
-                { title: "Air Oil Separator Assembly", category: "trucks new", link: "product-air-oil-separator-assembly.html", img: "images/products/5.webp" },
-                { title: "ATF Thermal Bypass Valve", category: "trucks new", link: "product-atf-thermal-bypass-valve.html", img: "images/products/7.webp" },
-                { title: "Front Upper & Lower Ball Joint Set", category: "motorcycles", link: "product-front-upper-lower-ball-joint-set.html", img: "images/products/8.webp" },
-                { title: "Neutral Shift Assist Kit, Red", category: "motorcycles new", link: "product-neutral-shift-assist-red.html", img: "images/products/1.webp" },
-                { title: "Neutral Shift Assist Kit, Black", category: "motorcycles", link: "product-neutral-shift-assist-black.html", img: "images/products/2.webp" },
-                { title: "Scrub Mat", category: "rv-trailers tools-accessories new", link: "product-scrub-mat.html", img: "images/products/33.webp" }
-            ];
-
-            const lowerQuery = query.toLowerCase();
-            const filteredCards = productsData.filter(item => {
-                return item.title.toLowerCase().includes(lowerQuery) || item.category.toLowerCase().includes(lowerQuery);
-            });
-
-            if (filteredCards.length > 0) {
-                resultsContainer.innerHTML = '';
-                resultsContainer.className = 'shop-grid'; // Use shop-grid layout
-                filteredCards.forEach(item => {
-                    const isNew = item.category.includes('new');
-                    const badgeHtml = isNew ? `<div class="shop-card-badge new">New</div>` : '';
+            // 动态从 products.html 读取产品数据
+            fetch('products.html')
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.text();
+                })
+                .then(html => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    const shopCards = doc.querySelectorAll('.shop-card');
                     
-                    resultsContainer.innerHTML += `
-                        <div class="shop-card" data-category="${item.category}" style="display: flex;">
-                            ${badgeHtml}
-                            <div class="shop-card-img" style="background-image: url('${item.img}'); background-size: contain; background-color: #fff;"></div>
-                            <div class="shop-card-info">
-                                <h3 class="shop-card-title">${item.title}</h3>
-                                <a href="${item.link}" class="btn shop-card-btn">VIEW DETAILS</a>
+                    const lowerQuery = query.toLowerCase();
+                    const filteredCards = Array.from(shopCards).filter(card => {
+                        const title = card.querySelector('.shop-card-title').textContent.toLowerCase();
+                        const category = (card.getAttribute('data-category') || '').toLowerCase();
+                        return title.includes(lowerQuery) || category.includes(lowerQuery);
+                    });
+
+                    if (filteredCards.length > 0) {
+                        resultsContainer.innerHTML = '';
+                        resultsContainer.className = 'shop-grid'; // 确保使用网格布局
+                        filteredCards.forEach(card => {
+                            card.style.display = 'flex'; // 覆盖可能被隐藏的样式
+                            resultsContainer.appendChild(card);
+                        });
+                    } else {
+                        resultsContainer.innerHTML = `<div class="no-results" style="grid-column: 1 / -1;">No results found for "${query}". Please try a different keyword.</div>`;
+                    }
+                })
+                .catch(err => {
+                    console.error('Error fetching products:', err);
+                    // 如果在本地以 file:/// 协议打开，会有跨域限制导致 fetch 失败，这里给出友好的提示
+                    if (window.location.protocol === 'file:') {
+                        resultsContainer.innerHTML = `
+                            <div class="no-results" style="grid-column: 1 / -1;">
+                                <h3 style="color: #d9534f; margin-bottom: 10px;">⚠️ Local Preview Limitation</h3>
+                                <p>Search relies on reading the products page, which is blocked by browsers when opening local files directly (<code>file:///</code>).</p>
+                                <p><strong>Don't worry! This will work perfectly once you upload it to GitHub Pages.</strong></p>
+                                <p style="font-size: 0.9rem; margin-top: 10px;">(To test locally, you can use VS Code Live Server or a local HTTP server.)</p>
                             </div>
-                        </div>
-                    `;
+                        `;
+                    } else {
+                        resultsContainer.innerHTML = `<div class="no-results" style="grid-column: 1 / -1;">An error occurred while searching. Please try again later.</div>`;
+                    }
                 });
-            } else {
-                resultsContainer.innerHTML = `<div class="no-results" style="grid-column: 1 / -1;">No results found for "${query}". Please try a different keyword.</div>`;
-            }
         } else {
             queryElement.textContent = 'All Categories';
             resultsContainer.innerHTML = `<div class="no-results" style="grid-column: 1 / -1;">Please enter a keyword to search.</div>`;
