@@ -102,7 +102,6 @@
     </footer>
 
     <script>
-        // Simple client-side search simulation
         const urlParams = new URLSearchParams(window.location.search);
         const query = urlParams.get('q') || '';
         
@@ -112,43 +111,68 @@
         if (query.trim() !== '') {
             queryElement.textContent = '"' + query + '"';
             
-            // Mock data for search results matching Valtecs site content
-            const mockData = [
-                { title: "Performance Brake Pads", desc: "Engineered for optimal stopping power and reduced dust for daily driving and performance applications.", link: "product-detail.html", img: "images/banner_car.jpg" },
-                { title: "Suspension Kits", desc: "Complete suspension upgrades providing improved handling, comfort, and durability on all road surfaces.", link: "product-detail.html", img: "images/banner_car.jpg" },
-                { title: "Engine Filters", desc: "High-efficiency air and oil filters designed to protect your engine and maximize performance.", link: "product-detail.html", img: "images/banner_car.jpg" },
-                { title: "Heavy-Duty Towing Accessories", desc: "Built for maximum strength and reliability when hauling heavy loads across rugged terrain.", link: "product-detail.html", img: "images/banner_truck.jpg" },
-                { title: "Cargo Management", desc: "Secure your load with our premium tie-downs, bed extenders, and organization systems.", link: "product-detail.html", img: "images/banner_truck.jpg" },
-                { title: "Performance Exhausts", desc: "Enhance power delivery and signature sound with our precision-engineered exhaust systems.", link: "product-detail.html", img: "images/banner_moto.jpg" }
+            // 真实产品数据
+            const productsData = [
+                { title: "Truck Winch Remote Control", category: "trucks", link: "product-truck-winch-remote-control.html", img: "images/products/17.webp" },
+                { title: "Turbo Intercooler Outlet Hose", category: "trucks", link: "product-turbo-intercooler-outlet-hose.html", img: "images/products/28.webp" },
+                { title: "Truck Step Boot Brush", category: "rv-trailers trucks tools-accessories new", link: "product-truck-step-boot-brush.html", img: "images/products/34.webp" },
+                { title: "Lever Action Barrel Pump", category: "tools", link: "product-lever-action-barrel-pump.html", img: "images/products/29.webp" },
+                { title: "OBD2 Anti-Theft Lock", category: "tools", link: "product-obd2-anti-theft-lock.html", img: "images/products/32.webp" },
+                { title: "Rotary Transfer Pump", category: "tools", link: "product-rotary-transfer-pump.html", img: "images/products/31.webp" },
+                { title: "Clutch Alignment Tool", category: "motorcycles", link: "product-clutch-alignment-tool.html", img: "images/products/27.webp" },
+                { title: "Front Door Lock Actuator Pair", category: "cars-suvs", link: "product-front-door-lock-actuator-pair.html", img: "images/products/24.webp" },
+                { title: "OBD Auto Start Stop Eliminator", category: "tools-accessories new", link: "product-obd-auto-start-stop-eliminator.html", img: "images/products/23.webp" },
+                { title: "Auto Start Stop Eliminator", category: "tools-accessories", link: "product-auto-start-stop-eliminator.html", img: "images/products/22.webp" },
+                { title: "Heater Hose Tee Kit (90° & Angled)", category: "trucks", link: "product-heater-hose-tee-kit.html", img: "images/products/19.webp" },
+                { title: "Dual Valve Core Removal Tool with Sight Glass", category: "tools-accessories new", link: "product-dual-valve-core-removal-tool-with-sight-glass.html", img: "images/products/18.webp" },
+                { title: "Backup Rear View Camera", category: "cars-suvs new", link: "product-backup-rear-view-camera.html", img: "images/products/16.webp" },
+                { title: "Under-Screen Organizer", category: "cars-suvs tools-accessories new", link: "product-under-screen-organizer.html", img: "images/products/6.webp" },
+                { title: "Oil Catch Can Kit", category: "trucks tools-accessories", link: "product-oil-catch-can-kit.html", img: "images/products/9.webp" },
+                { title: "Front Right Windshield Wiper Arm", category: "cars-suvs new", link: "product-front-right-windshield-wiper-arm.html", img: "images/products/10.webp" },
+                { title: "Front Windshield Wiper Arm Pair Kit", category: "trucks", link: "product-front-windshield-wiper-arm-pair-kit.html", img: "images/products/11.webp" },
+                { title: "Front Wiper Arm Pair Kit", category: "trucks", link: "product-front-wiper-arm-pair-kit.html", img: "images/products/12.webp" },
+                { title: "Front Wiper Arm Pair", category: "trucks", link: "product-front-wiper-arm-pair.html", img: "images/products/13.webp" },
+                { title: "Ignition & Front Door Lock Cylinder Set", category: "trucks", link: "product-ignition-front-door-lock-cylinder-set.html", img: "images/products/14.webp" },
+                { title: "Tubing Straightener", category: "tools-accessories new", link: "product-tubing-straightener.html", img: "images/products/15.webp" },
+                { title: "Front Left Armrest Repair Kit", category: "trucks", link: "product-front-left-armrest-repair-kit.html", img: "images/products/3.webp" },
+                { title: "Front Right Armrest Repair Kit", category: "trucks", link: "product-front-right-armrest-repair-kit.html", img: "images/products/4.webp" },
+                { title: "Air Oil Separator Assembly", category: "trucks new", link: "product-air-oil-separator-assembly.html", img: "images/products/5.webp" },
+                { title: "ATF Thermal Bypass Valve", category: "trucks new", link: "product-atf-thermal-bypass-valve.html", img: "images/products/7.webp" },
+                { title: "Front Upper & Lower Ball Joint Set", category: "motorcycles", link: "product-front-upper-lower-ball-joint-set.html", img: "images/products/8.webp" },
+                { title: "Neutral Shift Assist Kit, Red", category: "motorcycles new", link: "product-neutral-shift-assist-red.html", img: "images/products/1.webp" },
+                { title: "Neutral Shift Assist Kit, Black", category: "motorcycles", link: "product-neutral-shift-assist-black.html", img: "images/products/2.webp" },
+                { title: "Scrub Mat", category: "rv-trailers tools-accessories new", link: "product-scrub-mat.html", img: "images/products/33.webp" }
             ];
 
-            // Simple search logic
             const lowerQuery = query.toLowerCase();
-            const filteredResults = mockData.filter(item => 
-                item.title.toLowerCase().includes(lowerQuery) || 
-                item.desc.toLowerCase().includes(lowerQuery)
-            );
+            const filteredCards = productsData.filter(item => {
+                return item.title.toLowerCase().includes(lowerQuery) || item.category.toLowerCase().includes(lowerQuery);
+            });
 
-            if (filteredResults.length > 0) {
+            if (filteredCards.length > 0) {
                 resultsContainer.innerHTML = '';
-                filteredResults.forEach(item => {
+                resultsContainer.className = 'shop-grid'; // Use shop-grid layout
+                filteredCards.forEach(item => {
+                    const isNew = item.category.includes('new');
+                    const badgeHtml = isNew ? `<div class="shop-card-badge new">New</div>` : '';
+                    
                     resultsContainer.innerHTML += `
-                        <div class="category-card">
-                            <div class="card-img" style="background-image: url('${item.img}');"></div>
-                            <div class="card-content">
-                                <h3>${item.title}</h3>
-                                <p>${item.desc}</p>
-                                <a href="${item.link}" class="btn btn-outline">View Details</a>
+                        <div class="shop-card" data-category="${item.category}" style="display: flex;">
+                            ${badgeHtml}
+                            <div class="shop-card-img" style="background-image: url('${item.img}'); background-size: contain; background-color: #fff;"></div>
+                            <div class="shop-card-info">
+                                <h3 class="shop-card-title">${item.title}</h3>
+                                <a href="${item.link}" class="btn shop-card-btn">VIEW DETAILS</a>
                             </div>
                         </div>
                     `;
                 });
             } else {
-                resultsContainer.innerHTML = `<div class="no-results">No results found for "${query}". Please try a different keyword.</div>`;
+                resultsContainer.innerHTML = `<div class="no-results" style="grid-column: 1 / -1;">No results found for "${query}". Please try a different keyword.</div>`;
             }
         } else {
             queryElement.textContent = 'All Categories';
-            resultsContainer.innerHTML = `<div class="no-results">Please enter a keyword to search.</div>`;
+            resultsContainer.innerHTML = `<div class="no-results" style="grid-column: 1 / -1;">Please enter a keyword to search.</div>`;
         }
     </script>
     <script src="js/main.js?v=20260604"></script>
