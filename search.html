@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VALTECS | Pal for Wheels | Professional Auto Parts & Accessories</title>
+    <title>VALTECS | Pal for Wheels | Premium Auto Parts & Accessories</title>
         <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
@@ -111,7 +111,7 @@
         if (query.trim() !== '') {
             queryElement.textContent = '"' + query + '"';
             
-            // 动态从 products.html 读取产品数据
+            // \u52a8\u6001\u4ece products.html \u8bfb\u53d6\u4ea7\u54c1\u6570\u636e
             fetch('products.html')
                 .then(response => {
                     if (!response.ok) throw new Error('Network response was not ok');
@@ -131,9 +131,9 @@
 
                     if (filteredCards.length > 0) {
                         resultsContainer.innerHTML = '';
-                        resultsContainer.className = 'shop-grid'; // 确保使用网格布局
+                        resultsContainer.className = 'shop-grid'; // \u786e\u4fdd\u4f7f\u7528\u7f51\u683c\u5e03\u5c40
                         filteredCards.forEach(card => {
-                            card.style.display = 'flex'; // 覆盖可能被隐藏的样式
+                            card.style.display = 'flex'; // \u8986\u76d6\u53ef\u80fd\u88ab\u9690\u85cf\u7684\u6837\u5f0f
                             resultsContainer.appendChild(card);
                         });
                     } else {
@@ -142,11 +142,11 @@
                 })
                 .catch(err => {
                     console.error('Error fetching products:', err);
-                    // 如果在本地以 file:/// 协议打开，会有跨域限制导致 fetch 失败，这里给出友好的提示
+                    // \u5982\u679c\u5728\u672c\u5730\u4ee5 file:/// \u534f\u8bae\u6253\u5f00\uff0c\u4f1a\u6709\u8de8\u57df\u9650\u5236\u5bfc\u81f4 fetch \u5931\u8d25\uff0c\u8fd9\u91cc\u7ed9\u51fa\u53cb\u597d\u7684\u63d0\u793a
                     if (window.location.protocol === 'file:') {
                         resultsContainer.innerHTML = `
                             <div class="no-results" style="grid-column: 1 / -1;">
-                                <h3 style="color: #d9534f; margin-bottom: 10px;">⚠️ Local Preview Limitation</h3>
+                                <h3 style="color: #d9534f; margin-bottom: 10px;">\u26a0\ufe0f Local Preview Limitation</h3>
                                 <p>Search relies on reading the products page, which is blocked by browsers when opening local files directly (<code>file:///</code>).</p>
                                 <p><strong>Don't worry! This will work perfectly once you upload it to GitHub Pages.</strong></p>
                                 <p style="font-size: 0.9rem; margin-top: 10px;">(To test locally, you can use VS Code Live Server or a local HTTP server.)</p>
