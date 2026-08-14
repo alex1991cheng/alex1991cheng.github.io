@@ -385,7 +385,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Initialize display state on load (limits to 6)
         triggerResourceSearch();
-        
+
+        // Handle URL hash to auto-activate Installation Videos tab (e.g. support.html#videos-tab)
+        if (window.location.hash === '#videos-tab') {
+            const videosTabBtn = document.querySelector('.tab-btn[data-target="videos-grid"]');
+            if (videosTabBtn) {
+                videosTabBtn.click();
+                // Smoothly scroll to Resource Center
+                const resourceSection = document.getElementById('resource-center');
+                if (resourceSection) {
+                    setTimeout(() => {
+                        resourceSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 120);
+                }
+            }
+        }
+
         resourceSearchInput.addEventListener('input', triggerResourceSearch);
     }
 

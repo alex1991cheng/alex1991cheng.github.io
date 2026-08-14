@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Important Notice | VALTECS | Pal for Wheels | Premium Auto Parts & Accessories</title>
+    <meta name="description" content="VALTECS provides premium auto parts and accessories for cars, SUVs, trucks, motorcycles, and RVs. Engineered for quality, fit, and durability on North American journeys.">
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+    <link rel="icon" href="icons/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/style.css?v=20260604">
+    <style>
+        .notice-page-header {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url('images/header_support.webp');
+            background-size: cover;
+            background-position: center;
+            padding: 80px 0;
+            text-align: center;
+            color: #fff;
+        }
+
+        .notice-page-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .notice-page-header p {
+            font-size: 1.15rem;
+            opacity: 0.92;
+            margin: 0;
+        }
+
+        .notice-wrapper {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .notice-card {
+            background-color: #ffffff;
+            border: 1px solid #f0e6d6;
+            border-top: 6px solid var(--primary-color);
+            border-radius: 12px;
+            padding: 50px 45px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        .notice-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 26px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .notice-icon {
+            width: 44px;
+            height: 44px;
+            background-color: #fff3e0;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .notice-icon svg {
+            width: 26px;
+            height: 26px;
+            stroke: #e65100;
+        }
+
+        .notice-title h2 {
+            margin: 0;
+            color: var(--secondary-color);
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .notice-content p {
+            font-size: 1.08rem;
+            line-height: 1.85;
+            color: #4a4a4a;
+            margin-bottom: 18px;
+        }
+
+        .notice-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .mechanic-note {
+            background-color: #fff8e1;
+            border-left: 4px solid #ffb300;
+            padding: 18px 22px;
+            margin: 28px 0;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .mechanic-note p {
+            margin: 0;
+            font-weight: 600;
+            color: #6d4c00;
+            font-size: 1.08rem;
+        }
+
+        .notice-actions {
+            display: flex;
+            gap: 18px;
+            margin: 42px auto 0 auto;
+            padding-top: 30px;
+            border-top: 1px solid #f0f0f0;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 720px;
+        }
+
+        .btn-primary-large,
+        .btn-secondary-large {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex: 1 1 0;
+            min-width: 280px;
+            padding: 14px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+            white-space: normal;
+            text-align: center;
+        }
+
+        .btn-primary-large {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            box-shadow: 0 4px 6px rgba(249, 113, 6, 0.2);
+        }
+
+        .btn-primary-large:hover {
+            background-color: #e56505;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(249, 113, 6, 0.3);
+        }
+
+        .btn-secondary-large {
+            background-color: #ffffff;
+            color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+
+        .btn-secondary-large:hover {
+            background-color: var(--secondary-color);
+            color: #ffffff;
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 640px) {
+            .notice-page-header h1 {
+                font-size: 2rem;
+            }
+
+            .notice-card {
+                padding: 32px 22px;
+            }
+
+            .notice-title h2 {
+                font-size: 1.35rem;
+            }
+
+            .btn-primary-large,
+            .btn-secondary-large {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/valtecs_logo.svg" alt="Valtecs Logo">
+                </a>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="support.html">Support</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="nav-search">
+                    <form action="search.html" method="GET">
+                        <input type="text" name="q" placeholder="Search..." class="search-input">
+                        <button type="submit" class="search-btn" aria-label="Search">
+                            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        </button>
+                    </form>
+                </div>
+            </nav>
+            <div class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="notice-page-header">
+            <div class="container">
+                <h1>Third-Party Video Reference</h1>
+                <p>Please review the following important information before viewing.</p>
+            </div>
+        </section>
+
+        <section class="section bg-light">
+            <div class="notice-wrapper">
+                <div class="notice-card">
+                    <div class="notice-title">
+                        <span class="notice-icon">
+                            <svg viewBox="0 0 24 24" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                                <line x1="12" y1="9" x2="12" y2="13"></line>
+                                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                            </svg>
+                        </span>
+                        <h2>Important Notice</h2>
+                    </div>
+
+                    <div class="notice-content">
+                        <div class="mechanic-note">
+                            <p>It is recommended to seek assistance from a qualified professional mechanic for installation.</p>
+                        </div>
+
+                        <p>The linked video is provided <strong>for reference only</strong>. Please note that the product shown in this third-party video may not be our brand. All copyrights to the video belong to its original creator.</p>
+
+                        <p><strong>VALTECS does not accept liability for the accuracy, completeness or outcomes related to the video content.</strong></p>
+                    </div>
+
+                    <div class="notice-actions">
+                        <a id="video-notice-yt-link" href="https://www.youtube.com/watch?v=EDmE8lNoeys" target="_blank" rel="noopener noreferrer" class="btn-primary-large">
+                            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                            View reference video on YouTube
+                        </a>
+                        <a href="support.html#videos-tab" class="btn-secondary-large">
+                            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                            Cancel &amp; Return
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">
+                        <img src="images/valtecs_logo_white.svg" alt="VALTECS Logo">
+                    </a>
+                    <p>VALTECS - Pal for Wheels.<br>Premium auto parts and accessories engineered for quality, fit, and durability on North American journeys.</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="support.html">Support</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p>Email: support@val-tecs.com</p>
+                    <div class="social-links">
+                        <a href="coming-soon.html" class="social-icon" title="Facebook"><img src="icons/facebook.svg" alt="Facebook"></a>
+                        <a href="coming-soon.html" class="social-icon" title="Instagram"><img src="icons/instagram.svg" alt="Instagram"></a>
+                        <a href="coming-soon.html" class="social-icon" title="X"><img src="icons/x.svg" alt="X"></a>
+                        <a href="coming-soon.html" class="social-icon" title="YouTube"><img src="icons/Youtube.svg" alt="YouTube"></a>
+                        <a href="coming-soon.html" class="social-icon" title="TikTok"><img src="icons/tiktok.svg" alt="TikTok"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Valtecs. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js?v=20260604"></script>
+    <script>
+        // Dynamically populate YouTube link from URL query string
+        //
+        // Usage (pick one):
+        //   1) video-notice.html?v=YOUTUBE_VIDEO_ID        (recommended for plain links)
+        //   2) video-notice.html?link=URL_ENCODED_FULL_URL (for links with &t=1s or other params)
+        //
+        (function () {
+            var params = new URLSearchParams(window.location.search);
+            var linkParam = params.get('link');
+            var vParam = params.get('v');
+            var youtubeUrl = null;
+
+            if (linkParam) {
+                // URL-encoded full link (supports extra query params like &t=1s)
+                try {
+                    youtubeUrl = decodeURIComponent(linkParam);
+                } catch (e) {
+                    youtubeUrl = linkParam;
+                }
+            } else if (vParam) {
+                var isFullUrl = /^https?:\/\//i.test(vParam);
+                youtubeUrl = isFullUrl
+                    ? vParam
+                    : 'https://www.youtube.com/watch?v=' + encodeURIComponent(vParam);
+            }
+
+            if (!youtubeUrl) return;
+
+            // Simple validation: ensure the URL points to youtube.com or youtu.be
+            var isYoutubeHost = /https?:\/\/(www\.)?(youtube\.com|youtu\.be)\//i.test(youtubeUrl);
+            if (!isYoutubeHost) return;
+
+            var btn = document.getElementById('video-notice-yt-link');
+            if (btn) btn.setAttribute('href', youtubeUrl);
+        })();
+    </script>
+</body>
+</html>
