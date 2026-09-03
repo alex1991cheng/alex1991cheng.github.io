@@ -284,7 +284,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         
                         cards.forEach((card, index) => {
                             grid.appendChild(card); // 重新挂载回 DOM 保证顺序
-                            if (index < 6) { // 限制只显示6个
+                            if (index < 10) { // 限制只显示10个
                                 card.style.display = ''; // Revert to grid layout defined in CSS
                                 // For videos, make sure the "Watch Video" button is visible
                                 const videoBtn = card.querySelector('a[href*=".mp4"]');
